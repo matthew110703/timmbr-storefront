@@ -14,6 +14,7 @@ Welcome to the central documentation hub for the **@timmbr** storefront and mult
 
 ### 2. Standards & Conventions
 
+- **[Design System Guidelines](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/conventions/design-system.md)**: Consumption standards, Tailwind v4 setup, provider layering, and missing-component escalation for `@timmbr/*` packages.
 - **[Port Allocation Convention](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/conventions/ports.md)**: Standard port numbering across the monorepo (`shell: 8000`, secondary zones: `8001`, `8002`, ...).
 - **[Environment Strategy](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/conventions/environment.md)**: Cascading `.env` hierarchy and type-safe Zod runtime schema validation.
 - **[Static Strings Convention](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/conventions/strings.md)**: Co-located `strings.ts` files across all route segments for centralized static UI copy.

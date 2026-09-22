@@ -1,61 +1,116 @@
+import {
+  Container,
+  Stack,
+  Inline,
+  Heading,
+  Text,
+  Badge,
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  DataList,
+  DataListItem,
+  DataListLabel,
+  DataListValue,
+} from "@timmbr/ui";
+import { Sparkles } from "@timmbr/icons";
 import { strings } from "./strings";
 
 export default function HomePage() {
   return (
-    <div className="container">
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="pill-tag">
-          <span className="status-dot" />
-          <span>{strings.hero.pill}</span>
+    <Container maxWidth="lg" padded>
+      <Stack gap={8}>
+        {/* Hero Section */}
+        <Stack gap={4} align="center" className="text-center py-8">
+          <Badge variant="primary" dot size="md">
+            {strings.hero.pill}
+          </Badge>
+
+          <Heading level={1} font="display" foreground="default">
+            {strings.hero.title}{" "}
+            <span className="text-primary">{strings.hero.titleAccent}</span>
+          </Heading>
+
+          <Text
+            variant="body-1"
+            foreground="muted"
+            className="max-w-2xl text-center"
+          >
+            {strings.hero.description}
+          </Text>
+
+          <Inline gap={4} justify="center" className="pt-2">
+            <Button variant="default" size="lg" asChild>
+              <a href="/health" target="_blank">
+                {strings.hero.ctaProbe}
+              </a>
+            </Button>
+          </Inline>
+        </Stack>
+
+        {/* Ingress Control Plane Card */}
+        <div className="max-w-2xl mx-auto w-full">
+          <Card variant="interactive" padding="lg">
+            <CardHeader>
+              <Inline justify="between" align="center">
+                <Inline gap={2} align="center">
+                  <span
+                    className="text-primary inline-flex shrink-0"
+                    aria-hidden="true"
+                  >
+                    <Sparkles className="size-5" />
+                  </span>
+                  <CardTitle>{strings.controlPlaneCard.name}</CardTitle>
+                </Inline>
+                <Badge variant="subtle" size="sm">
+                  {strings.controlPlaneCard.tag}
+                </Badge>
+              </Inline>
+              <CardDescription>
+                {strings.controlPlaneCard.description}
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <DataList orientation="horizontal" divided size="default">
+                <DataListItem>
+                  <DataListLabel>
+                    {strings.controlPlaneCard.portLabel}
+                  </DataListLabel>
+                  <DataListValue>
+                    <Badge variant="primary" size="sm">
+                      {strings.controlPlaneCard.portValue}
+                    </Badge>
+                  </DataListValue>
+                </DataListItem>
+                <DataListItem>
+                  <DataListLabel>
+                    {strings.controlPlaneCard.nextAppsLabel}
+                  </DataListLabel>
+                  <DataListValue>
+                    <Text variant="body-2">
+                      {strings.controlPlaneCard.nextAppsValue}
+                    </Text>
+                  </DataListValue>
+                </DataListItem>
+                <DataListItem>
+                  <DataListLabel>
+                    {strings.controlPlaneCard.bundlerLabel}
+                  </DataListLabel>
+                  <DataListValue>
+                    <Text variant="body-2" weight="semibold">
+                      {strings.controlPlaneCard.bundlerValue}
+                    </Text>
+                  </DataListValue>
+                </DataListItem>
+              </DataList>
+            </CardContent>
+          </Card>
         </div>
-
-        <h1 className="hero-title">
-          {strings.hero.title} <br />
-          <span className="hero-title-accent">{strings.hero.titleAccent}</span>
-        </h1>
-
-        <p className="hero-description">{strings.hero.description}</p>
-
-        <div className="hero-actions">
-          <a href="/health" target="_blank" className="btn-primary">
-            <span>{strings.hero.ctaProbe}</span>
-          </a>
-        </div>
-      </section>
-
-      {/* Control Plane Status */}
-      <section style={{ maxWidth: "800px", margin: "0 auto 4rem" }}>
-        <div className="zone-card active-zone">
-          <div className="zone-header">
-            <div className="zone-icon">🌐</div>
-            <span className="zone-tag tag-active">
-              {strings.controlPlaneCard.tag}
-            </span>
-          </div>
-          <h3 className="zone-name">
-            {strings.controlPlaneCard.name}
-            <span className="zone-path">{strings.controlPlaneCard.path}</span>
-          </h3>
-          <p className="zone-description">
-            {strings.controlPlaneCard.description}
-          </p>
-          <div className="zone-meta">
-            <span>
-              {strings.controlPlaneCard.portLabel}{" "}
-              <strong>{strings.controlPlaneCard.portValue}</strong>
-            </span>
-            <span>
-              {strings.controlPlaneCard.nextAppsLabel}{" "}
-              <strong>{strings.controlPlaneCard.nextAppsValue}</strong>
-            </span>
-            <span>
-              {strings.controlPlaneCard.bundlerLabel}{" "}
-              <strong>{strings.controlPlaneCard.bundlerValue}</strong>
-            </span>
-          </div>
-        </div>
-      </section>
-    </div>
+      </Stack>
+    </Container>
   );
 }

@@ -104,6 +104,18 @@ The custom runner ([`scripts/dev-runner.js`](file:///c:/Users/Nexus/Desktop/Codi
 
 ---
 
+## 🎨 Local Design System Linking (`../timmbr-ds`)
+
+When concurrently developing components in the Design System repository located at `../timmbr-ds`:
+
+| Command          | Description                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| `pnpm ds:status` | Check whether each zone is consuming published NPM registry packages or local links  |
+| `pnpm ds:link`   | Dynamically link all `@timmbr/*` packages from `../timmbr-ds/packages/` to all zones |
+| `pnpm ds:unlink` | Unlink local packages across all zones and restore published NPM registry packages   |
+
+---
+
 ## 🧪 Testing & Verification
 
 | Command            | Tool           | Purpose                                                    |

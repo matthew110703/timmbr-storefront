@@ -1,8 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // transpilePackages will be enabled when @timmbr/ui and @timmbr/theme are linked
-  // transpilePackages: ['@timmbr/ui', '@timmbr/theme'],
+  transpilePackages: [
+    "@timmbr/ui",
+    "@timmbr/theme",
+    "@timmbr/motion",
+    "@timmbr/icons",
+    "@timmbr/hooks",
+    "@timmbr/utils",
+  ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "pub-dc2a8fc90be54a65b2d2000bed9fc8d2.r2.dev",
+      },
+    ],
+  },
   reactCompiler: true,
   experimental: {
     serverActions: {
