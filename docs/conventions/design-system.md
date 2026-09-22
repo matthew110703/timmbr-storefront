@@ -89,14 +89,31 @@ const nextConfig: NextConfig = {
 
 ---
 
-## 4. Local Development Linking (`../timmbr-ds`)
+## 4. Local Development Linking Strategy (`../timmbr-ds`)
 
-When iterating on the Design System repository concurrently, developers can link local `@timmbr/*` packages directly into storefront zones without publishing intermediate packages to NPM:
+When iterating on the Design System repository concurrently, the platform uses **`yalc`** for local package linking.
 
-| Command          | Action                                                                                                          |
-| :--------------- | :-------------------------------------------------------------------------------------------------------------- |
-| `pnpm ds:status` | Inspect all zones and report whether each `@timmbr/*` package is using **Registry** or **Linked** local source. |
-| `pnpm ds:link`   | Dynamically link all packages from `../timmbr-ds/packages/*` into all zones in `zones/`.                        |
-| `pnpm ds:unlink` | Unlink local packages across all zones and restore published registry packages via `pnpm install`.              |
+Unlike raw symlinks (which cause Turbopack to panic with `leaves the filesystem root` errors), `yalc` publishes build outputs into a local store and injects isolated `.yalc/` copies into consumer projects. This guarantees complete compatibility with **Turbopack**, **SWC**, and **Next.js Fast Refresh**.
+
+### Workflow Commands in `timmbr-storefront`:
+
+| Command          | Action                                                                                                            |
+| :--------------- | :---------------------------------------------------------------------------------------------------------------- |
+| `pnpm ds:status` | Inspect all zones and report whether each `@timmbr/*` package is using **Registry (npm)** or **Yalc Local Link**. |
+| `pnpm ds:link`   | Publishes all DS packages into the local Yalc store and links them into all zones in `zones/`.                    |
+| `pnpm ds:unlink` | Unlinks all Yalc packages across all zones, cleans `.yalc/` directories, and restores published NPM packages.     |
+
+### Making Subsequent Edits in `timmbr-ds`:
+
+Once linked with `pnpm ds:link`, you **do not** need to re-link storefront when you edit the Design System. Simply push updates from `timmbr-ds`:
+
+```bash
+# In timmbr-ds/
+pnpm yalc:push          # Rebuilds and pushes all packages to all consuming apps
+pnpm yalc:push ui       # Rebuilds and pushes @timmbr/ui only
+pnpm yalc:push theme    # Rebuilds and pushes @timmbr/theme only
+```
+
+Next.js Turbopack will immediately detect the updated files in `.yalc/` and trigger Fast Refresh in your active browser session.
 
 The design system repository path defaults to `../timmbr-ds` relative to the monorepo root, or can be overridden via `TIMMBR_DS_PATH`.

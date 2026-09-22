@@ -106,13 +106,16 @@ The custom runner ([`scripts/dev-runner.js`](file:///c:/Users/Nexus/Desktop/Codi
 
 ## 🎨 Local Design System Linking (`../timmbr-ds`)
 
-When concurrently developing components in the Design System repository located at `../timmbr-ds`:
+When concurrently developing components in the Design System repository located at `../timmbr-ds`, the platform uses **`yalc`** for safe, Turbopack-compatible local package linking:
 
-| Command          | Description                                                                          |
-| ---------------- | ------------------------------------------------------------------------------------ |
-| `pnpm ds:status` | Check whether each zone is consuming published NPM registry packages or local links  |
-| `pnpm ds:link`   | Dynamically link all `@timmbr/*` packages from `../timmbr-ds/packages/` to all zones |
-| `pnpm ds:unlink` | Unlink local packages across all zones and restore published NPM registry packages   |
+| Command          | Description                                                                                           |
+| ---------------- | ----------------------------------------------------------------------------------------------------- |
+| `pnpm ds:status` | Check whether each zone is consuming published NPM registry packages or Yalc local links              |
+| `pnpm ds:link`   | Publishes all `@timmbr/*` packages to local Yalc store and links into all zones                       |
+| `pnpm ds:unlink` | Unlinks Yalc packages across all zones, cleans `.yalc/`, and restores published NPM registry packages |
+
+> **Making changes in `timmbr-ds`?**  
+> Once linked, run `pnpm yalc:push` in `timmbr-ds` to instantly build and push package updates to active apps with automatic Next.js Fast Refresh.
 
 ---
 

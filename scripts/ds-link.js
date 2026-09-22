@@ -84,6 +84,11 @@ function findZones() {
 }
 
 function getPackageStatus(zoneDir, pkgName) {
+  const yalcPkgPath = path.resolve(zoneDir, ".yalc", ...pkgName.split("/"));
+  if (fs.existsSync(yalcPkgPath)) {
+    return { status: "yalc", details: "Yalc Local Link (.yalc/)" };
+  }
+
   const nodeModulesPath = path.resolve(
     zoneDir,
     "node_modules",
@@ -96,7 +101,7 @@ function getPackageStatus(zoneDir, pkgName) {
   try {
     const realPath = fs.realpathSync(nodeModulesPath);
     if (realPath.includes("timmbr-ds")) {
-      return { status: "linked", details: `Linked (${realPath})` };
+      return { status: "symlink", details: `Symlink (${realPath})` };
     }
     const pkgJsonPath = path.resolve(nodeModulesPath, "package.json");
     let version = "";
@@ -110,11 +115,11 @@ function getPackageStatus(zoneDir, pkgName) {
   }
 }
 
-function handleStatus(dsPackages, zones) {
+function handleStatus(zones) {
   console.log(
     "\n=============================================================",
   );
-  console.log("            TIMMBR DESIGN SYSTEM LINK STATUS");
+  console.log("        TIMMBR STOREFRONT DESIGN SYSTEM STATUS (YALC)");
   console.log("=============================================================");
   console.log(`Design System Source: \x1b[36m${DS_PATH}\x1b[0m\n`);
 
@@ -127,7 +132,7 @@ function handleStatus(dsPackages, zones) {
 
     for (const dep of zone.timmbrDeps) {
       const info = getPackageStatus(zone.dir, dep);
-      if (info.status === "linked") {
+      if (info.status === "yalc") {
         console.log(
           `  \x1b[32m✔ ${dep.padEnd(20)}\x1b[0m -> \x1b[32m${info.details}\x1b[0m`,
         );
@@ -135,9 +140,11 @@ function handleStatus(dsPackages, zones) {
         console.log(
           `  \x1b[34m📦 ${dep.padEnd(20)}\x1b[0m -> \x1b[34m${info.details}\x1b[0m`,
         );
+      } else if (info.status === "symlink") {
+        console.log(`  \x1b[33m🔗 ${dep.padEnd(20)}\x1b[0m -> ${info.details}`);
       } else {
         console.log(
-          `  \x1b[33m⚠️  ${dep.padEnd(20)}\x1b[0m -> ${info.details}`,
+          `  \x1b[31m⚠️  ${dep.padEnd(20)}\x1b[0m -> ${info.details}`,
         );
       }
     }
@@ -149,54 +156,83 @@ function handleStatus(dsPackages, zones) {
 }
 
 function handleLink(dsPackages, zones) {
-  console.log(`\n\x1b[36mLinking @timmbr packages from: ${DS_PATH}\x1b[0m\n`);
-  const packagePaths = dsPackages.map((p) => `"${p.dir}"`).join(" ");
+  console.log(
+    `\n\x1b[36m[Yalc] Publishing packages from: ${DS_PATH}...\x1b[0m\n`,
+  );
 
+  // 1. Publish all DS packages to yalc store
+  for (const pkg of dsPackages) {
+    try {
+      execSync(`pnpm dlx yalc publish --push`, {
+        cwd: pkg.dir,
+        stdio: "pipe",
+      });
+      console.log(`  ✔ Published ${pkg.name} to yalc store`);
+    } catch (err) {
+      console.warn(`  ⚠️ Could not publish ${pkg.name}: ${err.message}`);
+    }
+  }
+
+  // 2. Add packages to each zone
   for (const zone of zones) {
     if (zone.timmbrDeps.length === 0) continue;
-    console.log(`\x1b[1mLinking into zones/${zone.name}...\x1b[0m`);
+    console.log(`\n\x1b[36m[Yalc] Linking into zones/${zone.name}...\x1b[0m`);
     try {
-      execSync(`pnpm --dir "${zone.dir}" link ${packagePaths}`, {
+      execSync(`pnpm exec yalc add ${zone.timmbrDeps.join(" ")}`, {
+        cwd: zone.dir,
         stdio: "inherit",
       });
       console.log(
-        `\x1b[32m✔ Successfully linked @timmbr packages into zones/${zone.name}\x1b[0m\n`,
+        `\x1b[32m✔ Successfully added @timmbr packages into zones/${zone.name}\x1b[0m`,
       );
     } catch (err) {
       console.error(
-        `\x1b[31m✖ Failed linking into zones/${zone.name}: ${err.message}\x1b[0m\n`,
+        `\x1b[31m✖ Failed linking into zones/${zone.name}: ${err.message}\x1b[0m`,
       );
     }
   }
 
-  handleStatus(dsPackages, zones);
+  console.log(
+    `\n\x1b[36m[Yalc] Running pnpm install across storefront...\x1b[0m`,
+  );
+  execSync("pnpm install", { cwd: ROOT_DIR, stdio: "inherit" });
+
+  handleStatus(zones);
 }
 
-function handleUnlink(dsPackages, zones) {
-  console.log(`\n\x1b[36mUnlinking @timmbr packages across zones...\x1b[0m\n`);
-  const packageNames = dsPackages.map((p) => p.name).join(" ");
+function handleUnlink(zones) {
+  console.log(
+    `\n\x1b[36m[Yalc] Unlinking @timmbr packages across zones...\x1b[0m\n`,
+  );
 
   for (const zone of zones) {
     if (zone.timmbrDeps.length === 0) continue;
-    console.log(`\x1b[1mUnlinking from zones/${zone.name}...\x1b[0m`);
     try {
-      execSync(`pnpm --dir "${zone.dir}" unlink ${packageNames}`, {
+      execSync(`pnpm exec yalc remove --all`, {
+        cwd: zone.dir,
         stdio: "inherit",
       });
-      console.log(
-        `\x1b[32m✔ Successfully unlinked @timmbr packages from zones/${zone.name}\x1b[0m\n`,
-      );
-    } catch (err) {
-      console.error(
-        `\x1b[31m✖ Failed unlinking from zones/${zone.name}: ${err.message}\x1b[0m\n`,
-      );
+    } catch {
+      // Continue if nothing to remove
+    }
+
+    const yalcDir = path.resolve(zone.dir, ".yalc");
+    if (fs.existsSync(yalcDir)) {
+      fs.rmSync(yalcDir, { recursive: true, force: true });
+    }
+    const yalcLock = path.resolve(zone.dir, "yalc.lock");
+    if (fs.existsSync(yalcLock)) {
+      fs.rmSync(yalcLock, { force: true });
     }
   }
 
   console.log("\x1b[36mRestoring registry packages via pnpm install...\x1b[0m");
-  execSync("pnpm install", { stdio: "inherit" });
+  execSync("pnpm install", { cwd: ROOT_DIR, stdio: "inherit" });
 
-  handleStatus(dsPackages, zones);
+  console.log(
+    `\x1b[32m✔ Successfully restored registry packages across all zones!\x1b[0m\n`,
+  );
+  handleStatus(zones);
 }
 
 const dsPackages = findDSPackages();
@@ -207,10 +243,10 @@ switch (action) {
     handleLink(dsPackages, zones);
     break;
   case "unlink":
-    handleUnlink(dsPackages, zones);
+    handleUnlink(zones);
     break;
   case "status":
   default:
-    handleStatus(dsPackages, zones);
+    handleStatus(zones);
     break;
 }
