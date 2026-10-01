@@ -1,27 +1,14 @@
-import { render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
-import HomePage from "./page";
-import { strings } from "./strings";
+import { describe, it, expect, vi } from "vitest";
+import ShellPage from "./page";
+import { redirect } from "next/navigation";
 
-describe("Shell HomePage", () => {
-  it("renders the main heading from strings.ts", () => {
-    render(<HomePage />);
-    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-    expect(screen.getByText(strings.hero.title)).toBeInTheDocument();
-  });
+vi.mock("next/navigation", () => ({
+  redirect: vi.fn(),
+}));
 
-  it("renders health check probe action link", () => {
-    render(<HomePage />);
-    const probeLink = screen.getByRole("link", { name: strings.hero.ctaProbe });
-    expect(probeLink).toBeInTheDocument();
-    expect(probeLink).toHaveAttribute("href", "/health");
-  });
-
-  it("displays the port 3000 control plane card", () => {
-    render(<HomePage />);
-    expect(screen.getByText(strings.controlPlaneCard.name)).toBeInTheDocument();
-    expect(
-      screen.getByText(strings.controlPlaneCard.portValue),
-    ).toBeInTheDocument();
+describe("Shell Root Page", () => {
+  it("redirects to /home", () => {
+    ShellPage();
+    expect(redirect).toHaveBeenCalledWith("/home");
   });
 });

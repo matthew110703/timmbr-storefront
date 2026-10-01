@@ -1,5 +1,6 @@
 import { Container, Center, EmptyState, Button } from "@timmbr/ui";
 import { Package } from "@timmbr/icons";
+import { strings } from "./strings";
 
 export default function NotFound() {
   return (
@@ -7,11 +8,11 @@ export default function NotFound() {
       <Center>
         <EmptyState
           icon={<Package className="size-12 text-primary" />}
-          title="Sanctuary Not Found"
-          description="The page or collection you are looking for does not exist in this zone."
+          title={strings.notFound.title}
+          description={strings.notFound.description}
           action={
             <Button variant="default" asChild>
-              <a href="/home">Return to Home</a>
+              <a href="/home">{strings.notFound.ctaHome}</a>
             </Button>
           }
         />

@@ -10,6 +10,7 @@ import {
   Button,
   Card,
 } from "@timmbr/ui";
+import { strings } from "./strings";
 
 export default function ErrorBoundary({
   error,
@@ -32,13 +33,13 @@ export default function ErrorBoundary({
         >
           <Stack gap={4} align="center">
             <Heading level={2} font="display">
-              Something went wrong
+              {strings.error.title}
             </Heading>
             <Text variant="body-2" foreground="muted">
-              An unexpected issue occurred while rendering the home page.
+              {strings.error.description}
             </Text>
             <Button variant="default" onClick={() => reset()} className="mt-2">
-              Try Again
+              {strings.error.retry}
             </Button>
           </Stack>
         </Card>

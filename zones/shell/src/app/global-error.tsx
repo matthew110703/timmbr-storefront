@@ -1,5 +1,7 @@
 "use client";
 
+import { strings } from "./strings";
+
 export default function GlobalError({
   error,
   reset,
@@ -19,11 +21,10 @@ export default function GlobalError({
         }}
       >
         <h2 style={{ fontSize: "2rem", marginBottom: "1rem" }}>
-          Global Application Error
+          {strings.globalError.title}
         </h2>
         <p style={{ color: "#94a3b8", marginBottom: "2rem" }}>
-          {error.message ||
-            "An unexpected error occurred in the shell ingress runtime."}
+          {error.message || strings.globalError.fallbackMessage}
         </p>
         <button
           onClick={() => reset()}
@@ -37,7 +38,7 @@ export default function GlobalError({
             cursor: "pointer",
           }}
         >
-          Try Again
+          {strings.globalError.retryButton}
         </button>
       </body>
     </html>

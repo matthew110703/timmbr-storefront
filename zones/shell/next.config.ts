@@ -24,14 +24,19 @@ const nextConfig: NextConfig = {
     },
   },
 
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/home",
+        permanent: false,
+      },
+    ];
+  },
+
   async rewrites() {
     const HOME_ZONE_URL = process.env.HOME_ZONE_URL || "http://localhost:3001";
     return [
-      // Root ingress routes to product home page
-      {
-        source: "/",
-        destination: `${HOME_ZONE_URL}/home`,
-      },
       // Secondary zone: home
       {
         source: "/home",

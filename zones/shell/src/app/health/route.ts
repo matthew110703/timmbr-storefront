@@ -6,7 +6,7 @@ export async function GET() {
   return NextResponse.json({
     status: "healthy",
     zone: "shell",
-    port: 8000,
+    port: 3000,
     role: "ingress-control-plane",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
