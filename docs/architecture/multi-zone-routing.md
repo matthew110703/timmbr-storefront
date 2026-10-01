@@ -6,7 +6,7 @@ Next.js Native Multi-Zones allow multiple independent Next.js applications to be
 
 ## 1. How Ingress Routing Works
 
-The `shell` application runs on port **8000** and serves the root domain (`/`). It acts as a reverse proxy for all other secondary zone applications running on subsequent ports (8001, 8002, etc.).
+The `shell` application runs on port **3000** and serves the root domain (`/`). It acts as a reverse proxy for all other secondary zone applications running on subsequent ports (3001, 3002, etc.).
 
 ### Ingress Rewrites in `zones/shell/next.config.ts`
 
@@ -19,20 +19,22 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
     serverActions: {
-      allowedOrigins: [process.env.NEXT_PUBLIC_DOMAIN || "localhost:8000"],
+      allowedOrigins: [process.env.NEXT_PUBLIC_DOMAIN || "localhost:3000"],
     },
   },
 
   async rewrites() {
-    const APP_URL = process.env.APP_ZONE_URL || "http://localhost:8001";
+    const HOME_ZONE_URL = process.env.HOME_ZONE_URL || "http://localhost:3001";
 
     return [
+      // Root ingress routes to home zone
+      { source: "/", destination: `${HOME_ZONE_URL}/home` },
       // Zone Application Routes & Static Assets
-      { source: "/app", destination: `${APP_URL}/app` },
-      { source: "/app/:path*", destination: `${APP_URL}/app/:path*` },
+      { source: "/home", destination: `${HOME_ZONE_URL}/home` },
+      { source: "/home/:path*", destination: `${HOME_ZONE_URL}/home/:path*` },
       {
-        source: "/app-static/:path*",
-        destination: `${APP_URL}/app-static/:path*`,
+        source: "/home-static/:path*",
+        destination: `${HOME_ZONE_URL}/home-static/:path*`,
       },
     ];
   },

@@ -6,12 +6,12 @@ export const strings = {
   },
   navigation: {
     brand: "timmbr",
-    badge: "Shell · Port 8000",
+    badge: "Shell · Port 3000",
     healthProbe: "Health Probe",
     nextDocs: "Next.js 16",
   },
   hero: {
-    pill: "Ingress Control Plane Online · Port 8000",
+    pill: "Ingress Control Plane Online · Port 3000",
     title: "Storefront Shell",
     titleAccent: "@timmbr Platform",
     description:
@@ -23,11 +23,11 @@ export const strings = {
     name: "Shell Control Plane",
     path: "/",
     description:
-      "Domain root host orchestrating routing, global layout, edge security headers, and health probes. Future multi-zone applications will be mapped sequentially starting at port 8001.",
+      "Domain root host orchestrating routing, global layout, edge security headers, and health probes. Downstream multi-zone applications are mapped sequentially starting at port 3001.",
     portLabel: "Port:",
-    portValue: "8000",
+    portValue: "3000",
     nextAppsLabel: "Next Apps:",
-    nextAppsValue: "8001, 8002...",
+    nextAppsValue: "3001, 3002...",
     bundlerLabel: "Bundler:",
     bundlerValue: "Turbopack",
   },
@@ -44,7 +44,7 @@ export const strings = {
     retryButton: "Try Again",
   },
   footer: {
-    copyrightSuffix: "@timmbr platform. Native Multi-Zone Ingress (Port 8000).",
+    copyrightSuffix: "@timmbr platform. Native Multi-Zone Ingress (Port 3000).",
   },
 } as const;
 

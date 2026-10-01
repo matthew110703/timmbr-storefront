@@ -20,13 +20,32 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
     serverActions: {
-      allowedOrigins: [process.env.NEXT_PUBLIC_DOMAIN || "localhost:8000"],
+      allowedOrigins: [process.env.NEXT_PUBLIC_DOMAIN || "localhost:3000"],
     },
   },
 
   async rewrites() {
-    // Secondary zone apps (allocated ports 8001, 8002, etc.) will be registered here
-    return [];
+    const HOME_ZONE_URL = process.env.HOME_ZONE_URL || "http://localhost:3001";
+    return [
+      // Root ingress routes to product home page
+      {
+        source: "/",
+        destination: `${HOME_ZONE_URL}/home`,
+      },
+      // Secondary zone: home
+      {
+        source: "/home",
+        destination: `${HOME_ZONE_URL}/home`,
+      },
+      {
+        source: "/home/:path*",
+        destination: `${HOME_ZONE_URL}/home/:path*`,
+      },
+      {
+        source: "/home-static/:path*",
+        destination: `${HOME_ZONE_URL}/home-static/:path*`,
+      },
+    ];
   },
 };
 

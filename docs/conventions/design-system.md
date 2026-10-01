@@ -6,13 +6,14 @@ The `@timmbr` storefront platform standardizes its entire user interface on the 
 
 ## 1. Core Packages
 
-| Package              | Version      | Description                                                                                     |
-| :------------------- | :----------- | :---------------------------------------------------------------------------------------------- |
-| **`@timmbr/ui`**     | `1.0.0-beta` | Core React component library (Layout, Display, Forms, Overlays, Feedback).                      |
-| **`@timmbr/theme`**  | `1.0.0-beta` | Design tokens, CSS variables, and Tailwind CSS v4 `@theme` definitions (`theme.css`).           |
-| **`@timmbr/motion`** | `1.0.0-beta` | Physics-based transitions, variants, presence, and motion primitives powered by `motion/react`. |
-| **`@timmbr/icons`**  | `1.0.0-beta` | Unified Lucide and custom SVG icon system.                                                      |
-| **`@timmbr/hooks`**  | `1.0.0-beta` | Pure React hooks for UI states and responsive queries.                                          |
+| Package              | Version       | Description                                                                                     |
+| :------------------- | :------------ | :---------------------------------------------------------------------------------------------- |
+| **`@timmbr/ui`**     | `^1.2.0`      | Core React component library (Layout, Display, Forms, Overlays, Feedback, Data).                |
+| **`@timmbr/theme`**  | `^1.1.0`      | Design tokens, CSS variables, and Tailwind CSS v4 `@theme` definitions (`theme.css`).           |
+| **`@timmbr/motion`** | `^1.1.0`      | Physics-based transitions, variants, presence, and motion primitives powered by `motion/react`. |
+| **`@timmbr/icons`**  | `^1.2.0`      | Unified Lucide and custom SVG icon system.                                                      |
+| **`@timmbr/hooks`**  | `^1.0.0-beta` | Pure React hooks for UI states and responsive queries.                                          |
+| **`@timmbr/utils`**  | `^1.1.0`      | Shared styling utilities, class merging (`cn`), and helper functions.                           |
 
 Living Storybook reference: [https://timmbr-ds-storybook.vercel.app](https://timmbr-ds-storybook.vercel.app/?path=/story/overview-home--overview)
 
@@ -20,17 +21,44 @@ Living Storybook reference: [https://timmbr-ds-storybook.vercel.app](https://tim
 
 ## 2. Fundamental Consumption Rules
 
-1. **No Ad-Hoc Components**:
-   - In all frontend applications under `zones/`, any element, container, button, tag, or dialog must come from `@timmbr/ui`.
-   - Never write custom ad-hoc styled tags when a design system component exists.
-   - The only exception is dedicated domain-level composite components (e.g., `ProductCard`, `OrderSummary`) that assemble DS primitives.
-2. **Missing Component Escalation Protocol**:
-   - If a needed component or element is not available in the design system, **do not build an unapproved substitute**.
-   - Flag the missing element to the user immediately, explain what is needed, and offer suggestions on whether it should be contributed to `@timmbr/ds`.
-3. **Strict Consent for Visual / Theme Deviations**:
-   - Colors, typography scales, radius values, and layout models must follow `@timmbr/theme`. Any changes or departures strictly require explicit user consent.
-4. **Co-located Strings Integration**:
-   - Comply with Rule 9: static text rendered inside design system components must always be sourced from the segment's co-located `strings.ts`.
+### Rule 1: Component-First Hierarchy (Inspect Design System First)
+
+- **First Priority**: Before writing ANY UI markup, always inspect `@timmbr/ui` to verify if an existing primitive matches the requirement.
+- Never write ad-hoc styled HTML tags (`<button className="...">`, `<input className="...">`, `<div className="card">`, `<h1>`, `<p>`) when a design system primitive exists.
+- Native HTML elements are ONLY permitted for semantic wrappers (such as `<form>`, `<main>`, `<nav>`) or when no suitable primitive exists.
+- Supported primitives include:
+  - **Layout**: `Container`, `Grid`, `Center`, `Stack`, `Inline`
+  - **Form**: `Input`, `Textarea`, `Select`, `Radio`, `Checkbox`, `Switch`, `RangeSlider`, `Label`, `FormField`, `ImageUpload`
+  - **Display**: `Button`, `LinkButton`, `Badge`, `Card`, `Avatar`, `Divider`, `Heading`, `Text`, `Chip`, `Stat`, `Accordion`
+  - **Feedback**: `Alert`, `Progress`, `Spinner`, `Skeleton`, `EmptyState`
+  - **Overlays**: `Dialog`, `Drawer`, `Dropdown`, `Popover`, `Toast`, `Tooltip`, `Tabs`, `SideBarNavigation`
+  - **Data**: `Table`, `Pagination`, `DataList`, `List`
+
+### Rule 2: Mandatory Layout Containers
+
+- Every layout file (`layout.tsx`) MUST wrap its main content with `@timmbr/ui`'s `Container` primitive.
+- Use `Center`, `Stack`, and `Inline` for layout rhythm and centering instead of raw `flex` or wrapper `div`s.
+
+### Rule 3: Missing Component Escalation Protocol
+
+- If a required UI component is not available in `@timmbr/ui`, **never build an unapproved local substitute**.
+- Immediately notify the user, describe the requirement, and evaluate whether it should be:
+  1. Contributed upstream to `@timmbr/ds`, or
+  2. Composed cleanly from existing primitives with explicit design approval.
+
+### Rule 4: Strict Consent for Visual & Token Deviations
+
+- Colors, typography scales, elevation shadows, radius tokens, and spacing scales must strictly adhere to `@timmbr/theme`.
+- Any visual styling outside token definitions requires explicit user consent.
+
+### Rule 5: Motion Animations First, Vanilla CSS Fallback
+
+- Centralize all motion animations, spring physics, and variants inside `@timmbr/motion`. Consuming applications MUST only consume from `@timmbr/motion`.
+- Provide clean vanilla CSS fallbacks when motion is disabled or for reduced-motion preferences.
+
+### Rule 6: Co-located Strings Integration
+
+- Static text rendered inside components must always be sourced from the route's co-located `strings.ts`.
 
 ---
 
@@ -49,9 +77,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <body>
-        <TimmbrConfigProvider>{children}</TimmbrConfigProvider>
+        <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
+          {children}
+        </TimmbrConfigProvider>
       </body>
     </html>
   );
@@ -60,13 +90,18 @@ export default function RootLayout({
 
 ### Tailwind CSS v4 Theme Import
 
-Consuming applications configure Tailwind CSS v4 via `@tailwindcss/postcss`. In `src/app/globals.css`:
+Consuming applications configure Tailwind CSS v4 in `src/app/globals.css`:
 
 ```css
 @import "tailwindcss";
 @import "@timmbr/theme/theme.css";
 
-@source "../../../../node_modules/@timmbr/ui/dist";
+@source "../../node_modules/@timmbr/ui/dist";
+@source "../../.yalc/@timmbr/ui/dist";
+@source "../../node_modules/@timmbr/icons/dist";
+@source "../../.yalc/@timmbr/icons/dist";
+@source "./**/*.{js,ts,jsx,tsx}";
+@source "../components/**/*.{js,ts,jsx,tsx}";
 ```
 
 ### Transpilation

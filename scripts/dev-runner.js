@@ -1,11 +1,17 @@
-const { spawn } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+#!/usr/bin/env node
+
+import { spawn } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const userArgs = process.argv.slice(2);
 const isAll = userArgs.includes("--all");
 
-const zonesDir = path.join(__dirname, "../zones");
+const zonesDir = path.resolve(__dirname, "../zones");
 
 // Discover all valid zone packages
 const allZones = fs.existsSync(zonesDir)

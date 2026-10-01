@@ -17,7 +17,7 @@ describe("Shell HomePage", () => {
     expect(probeLink).toHaveAttribute("href", "/health");
   });
 
-  it("displays the port 8000 control plane card", () => {
+  it("displays the port 3000 control plane card", () => {
     render(<HomePage />);
     expect(screen.getByText(strings.controlPlaneCard.name)).toBeInTheDocument();
     expect(

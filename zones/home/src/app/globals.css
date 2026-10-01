@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "@timmbr/theme/theme.css";
+
+@source "../../node_modules/@timmbr/ui/dist";
+@source "../../.yalc/@timmbr/ui/dist";
+@source "../../node_modules/@timmbr/icons/dist";
+@source "../../.yalc/@timmbr/icons/dist";
+@source "./**/*.{js,ts,jsx,tsx}";
+@source "../components/**/*.{js,ts,jsx,tsx}";
+
+:root {
+  color-scheme: light;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-2, #f7f1e6);
+    color: var(--color-grey-1000, #0b0b0b);
+    font-family: var(--font-sans, "Manrope", sans-serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+}

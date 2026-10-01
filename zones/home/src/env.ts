@@ -6,8 +6,7 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
-    PORT: z.coerce.number().default(3000),
-    HOME_ZONE_URL: z.string().url().default("http://localhost:3001"),
+    PORT: z.coerce.number().default(3001),
   },
   client: {
     NEXT_PUBLIC_DOMAIN: z.string().min(1).default("localhost:3000"),
@@ -15,7 +14,6 @@ export const env = createEnv({
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
     PORT: process.env.PORT,
-    HOME_ZONE_URL: process.env.HOME_ZONE_URL,
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,

@@ -38,12 +38,12 @@
   },
   "dependencies": {
     "@timmbr/eslint-config": "link:../timmbr-ds/packages/config-eslint",
-    "@timmbr/hooks": "link:../timmbr-ds/packages/hooks",
-    "@timmbr/icons": "link:../timmbr-ds/packages/icons",
-    "@timmbr/motion": "link:../timmbr-ds/packages/motion",
-    "@timmbr/theme": "link:../timmbr-ds/packages/theme",
+    "@timmbr/hooks": "1.0.0-beta",
+    "@timmbr/icons": "1.2.0",
+    "@timmbr/motion": "1.1.0",
+    "@timmbr/theme": "1.1.0",
     "@timmbr/tsconfig": "link:../timmbr-ds/packages/config-typescript",
-    "@timmbr/ui": "link:../timmbr-ds/packages/ui",
-    "@timmbr/utils": "link:../timmbr-ds/packages/utils"
+    "@timmbr/ui": "1.2.0",
+    "@timmbr/utils": "1.1.0"
   }
 }

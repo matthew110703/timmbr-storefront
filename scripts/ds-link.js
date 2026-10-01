@@ -11,6 +11,16 @@ const DS_PATH = process.env.TIMMBR_DS_PATH
   ? path.resolve(ROOT_DIR, process.env.TIMMBR_DS_PATH)
   : DEFAULT_DS_PATH;
 
+const localYalcCmd = path.resolve(
+  ROOT_DIR,
+  "node_modules",
+  ".bin",
+  process.platform === "win32" ? "yalc.cmd" : "yalc",
+);
+const YALC_EXEC = fs.existsSync(localYalcCmd)
+  ? `"${localYalcCmd}"`
+  : "pnpm exec yalc";
+
 const action = process.argv[2] || "status";
 
 function findDSPackages() {
@@ -178,7 +188,7 @@ function handleLink(dsPackages, zones) {
     if (zone.timmbrDeps.length === 0) continue;
     console.log(`\n\x1b[36m[Yalc] Linking into zones/${zone.name}...\x1b[0m`);
     try {
-      execSync(`pnpm exec yalc add ${zone.timmbrDeps.join(" ")}`, {
+      execSync(`${YALC_EXEC} add ${zone.timmbrDeps.join(" ")}`, {
         cwd: zone.dir,
         stdio: "inherit",
       });
@@ -208,7 +218,7 @@ function handleUnlink(zones) {
   for (const zone of zones) {
     if (zone.timmbrDeps.length === 0) continue;
     try {
-      execSync(`pnpm exec yalc remove --all`, {
+      execSync(`${YALC_EXEC} remove --all`, {
         cwd: zone.dir,
         stdio: "inherit",
       });
