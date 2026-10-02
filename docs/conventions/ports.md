@@ -6,13 +6,14 @@ To ensure deterministic local development without port collisions across multipl
 
 ## Port Allocation Matrix
 
-| Application          | Role                         | Port      | Path Prefix    | Notes                                            |
-| -------------------- | ---------------------------- | --------- | -------------- | ------------------------------------------------ |
-| `zones/shell`        | Ingress Host & Control Plane | **3000**  | `/`            | Serves root domain, acts as reverse proxy router |
-| `zones/home`         | Product Home Page            | **3001**  | `/home`        | Primary storefront home zone                     |
-| `zones/<next-app-2>` | Secondary Zone 2             | **3002**  | `/<subpath-2>` | Second secondary zone application                |
-| `zones/<next-app-3>` | Secondary Zone 3             | **3003**  | `/<subpath-3>` | Third secondary zone application                 |
-| `...`                | Subsequent Zones             | **3004+** | `/<subpath-n>` | Increment sequentially                           |
+| Application      | Role                               | Port      | Path Prefix    | Notes                                             |
+| ---------------- | ---------------------------------- | --------- | -------------- | ------------------------------------------------- |
+| `zones/shell`    | Storefront Landing & Ingress Proxy | **3000**  | `/`            | Serves root landing page and reverse proxy router |
+| `zones/auth`     | Authentication (Login/Register)    | **3001**  | `/auth`        | Dedicated auth zone                               |
+| `zones/products` | Product Catalog & Details          | **3002**  | `/products`    | Product catalog zone                              |
+| `zones/checkout` | Dedicated Checkout Flow            | **3003**  | `/checkout`    | Checkout & order confirmation zone                |
+| `zones/account`  | User Profile, Orders & Settings    | **3004**  | `/account`     | Account & profile management zone                 |
+| `...`            | Subsequent Zones                   | **3005+** | `/<subpath-n>` | Increment sequentially                            |
 
 ---
 

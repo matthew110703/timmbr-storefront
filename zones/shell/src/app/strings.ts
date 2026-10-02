@@ -1,9 +1,9 @@
 export const strings = {
   metadata: {
-    title: "timmbr | Multi-Zone Storefront Shell",
-    description:
-      "High-performance Next.js 16 Multi-Zone Architecture with App Router, Turbopack, and Ingress Control Plane.",
+    title: "timmbr",
+    description: "Storefront Shell",
   },
+  appName: "timmbr",
   notFound: {
     pill: "404 · Route Not Found",
     title: "Page Not Found",

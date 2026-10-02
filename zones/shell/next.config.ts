@@ -24,31 +24,54 @@ const nextConfig: NextConfig = {
     },
   },
 
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/home",
-        permanent: false,
-      },
-    ];
-  },
-
   async rewrites() {
-    const HOME_ZONE_URL = process.env.HOME_ZONE_URL || "http://localhost:3001";
+    const AUTH_ZONE_URL = process.env.AUTH_ZONE_URL || "http://localhost:3001";
+    const PRODUCTS_ZONE_URL =
+      process.env.PRODUCTS_ZONE_URL || "http://localhost:3002";
+    const CHECKOUT_ZONE_URL =
+      process.env.CHECKOUT_ZONE_URL || "http://localhost:3003";
+
     return [
-      // Secondary zone: home
+      // Secondary zone: auth (Port 3001)
       {
-        source: "/home",
-        destination: `${HOME_ZONE_URL}/home`,
+        source: "/auth",
+        destination: `${AUTH_ZONE_URL}/auth`,
       },
       {
-        source: "/home/:path*",
-        destination: `${HOME_ZONE_URL}/home/:path*`,
+        source: "/auth/:path*",
+        destination: `${AUTH_ZONE_URL}/auth/:path*`,
       },
       {
-        source: "/home-static/:path*",
-        destination: `${HOME_ZONE_URL}/home-static/:path*`,
+        source: "/auth-static/:path*",
+        destination: `${AUTH_ZONE_URL}/auth-static/:path*`,
+      },
+
+      // Secondary zone: products (Port 3002)
+      {
+        source: "/products",
+        destination: `${PRODUCTS_ZONE_URL}/products`,
+      },
+      {
+        source: "/products/:path*",
+        destination: `${PRODUCTS_ZONE_URL}/products/:path*`,
+      },
+      {
+        source: "/products-static/:path*",
+        destination: `${PRODUCTS_ZONE_URL}/products-static/:path*`,
+      },
+
+      // Secondary zone: checkout (Port 3003)
+      {
+        source: "/checkout",
+        destination: `${CHECKOUT_ZONE_URL}/checkout`,
+      },
+      {
+        source: "/checkout/:path*",
+        destination: `${CHECKOUT_ZONE_URL}/checkout/:path*`,
+      },
+      {
+        source: "/checkout-static/:path*",
+        destination: `${CHECKOUT_ZONE_URL}/checkout-static/:path*`,
       },
     ];
   },

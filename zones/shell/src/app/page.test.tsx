@@ -1,14 +1,12 @@
-import { describe, it, expect, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
 import ShellPage from "./page";
-import { redirect } from "next/navigation";
-
-vi.mock("next/navigation", () => ({
-  redirect: vi.fn(),
-}));
+import { strings } from "./strings";
 
 describe("Shell Root Page", () => {
-  it("redirects to /home", () => {
-    ShellPage();
-    expect(redirect).toHaveBeenCalledWith("/home");
+  it("renders the app name heading from strings.ts", () => {
+    render(<ShellPage />);
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
+    expect(screen.getByText(strings.appName)).toBeInTheDocument();
   });
 });

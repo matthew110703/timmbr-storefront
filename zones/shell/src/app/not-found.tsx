@@ -1,4 +1,4 @@
-import { Container, Center, EmptyState, Button } from "@timmbr/ui";
+import { Container, Center, EmptyState, LinkButton } from "@timmbr/ui";
 import { Package } from "@timmbr/icons";
 import { strings } from "./strings";
 
@@ -11,9 +11,9 @@ export default function NotFound() {
           title={strings.notFound.title}
           description={strings.notFound.description}
           action={
-            <Button variant="default" asChild>
-              <a href="/home">{strings.notFound.ctaHome}</a>
-            </Button>
+            <LinkButton href="/" variant="default">
+              {strings.notFound.ctaHome}
+            </LinkButton>
           }
         />
       </Center>

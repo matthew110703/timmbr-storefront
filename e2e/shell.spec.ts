@@ -7,18 +7,12 @@ test.describe("Ingress Shell E2E", () => {
     const data = await response.json();
     expect(data.status).toBe("healthy");
     expect(data.zone).toBe("shell");
-    expect(data.port).toBe(8000);
+    expect(data.port).toBe(3000);
   });
 
   test("renders platform shell homepage", async ({ page }) => {
     await page.goto("/");
     await expect(page).toHaveTitle(/timmbr/i);
-    await expect(page.locator("h1")).toContainText("Storefront Shell");
-    await expect(
-      page.getByRole("link", { name: /Check Liveness Probe/i }),
-    ).toBeVisible();
-    await expect(
-      page.getByRole("link", { name: /Health Probe/i }),
-    ).toBeVisible();
+    await expect(page.locator("h1")).toContainText("timmbr");
   });
 });

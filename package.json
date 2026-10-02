@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "node scripts/dev-runner.js",
     "dev:all": "node scripts/dev-runner.js --all",
-    "build": "turbo run build",
+    "build": "node scripts/build-runner.js",
+    "build:all": "node scripts/build-runner.js --all",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
     "test": "turbo run test",
@@ -15,6 +16,7 @@
     "ds:link": "node scripts/ds-link.js link",
     "ds:unlink": "node scripts/ds-link.js unlink",
     "ds:status": "node scripts/ds-link.js status",
+    "ds:check": "node scripts/ds-link.js check",
     "prepare": "husky"
   },
   "lint-staged": {
