@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "pub-dc2a8fc90be54a65b2d2000bed9fc8d2.r2.dev",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
   reactCompiler: true,
@@ -30,6 +34,8 @@ const nextConfig: NextConfig = {
       process.env.PRODUCTS_ZONE_URL || "http://localhost:3002";
     const CHECKOUT_ZONE_URL =
       process.env.CHECKOUT_ZONE_URL || "http://localhost:3003";
+    const ACCOUNT_ZONE_URL =
+      process.env.ACCOUNT_ZONE_URL || "http://localhost:3004";
 
     return [
       // Secondary zone: auth (Port 3001)
@@ -72,6 +78,20 @@ const nextConfig: NextConfig = {
       {
         source: "/checkout-static/:path*",
         destination: `${CHECKOUT_ZONE_URL}/checkout-static/:path*`,
+      },
+
+      // Secondary zone: account (Port 3004)
+      {
+        source: "/account",
+        destination: `${ACCOUNT_ZONE_URL}/account`,
+      },
+      {
+        source: "/account/:path*",
+        destination: `${ACCOUNT_ZONE_URL}/account/:path*`,
+      },
+      {
+        source: "/account-static/:path*",
+        destination: `${ACCOUNT_ZONE_URL}/account-static/:path*`,
       },
     ];
   },

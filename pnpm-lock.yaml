@@ -14,23 +14,23 @@ importers:
         specifier: 1.0.0-beta
         version: 1.0.0-beta(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons":
-        specifier: 1.2.0
-        version: 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.1
+        version: 1.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/motion":
-        specifier: 1.1.0
-        version: 1.1.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.0
+        version: 1.2.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/theme":
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.2.0
+        version: 1.2.0
       "@timmbr/tsconfig":
         specifier: link:../timmbr-ds/packages/config-typescript
         version: link:../timmbr-ds/packages/config-typescript
       "@timmbr/ui":
-        specifier: 1.2.0
-        version: 1.2.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.4.2
+        version: 1.4.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils":
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       "@playwright/test":
         specifier: ^1.51.0
@@ -66,20 +66,20 @@ importers:
         specifier: 1.0.0-beta
         version: 1.0.0-beta(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons":
-        specifier: 1.2.0
-        version: 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.1
+        version: 1.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/motion":
-        specifier: 1.1.0
-        version: 1.1.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/theme":
-        specifier: 1.1.0
-        version: 1.1.0
-      "@timmbr/ui":
         specifier: 1.2.0
-        version: 1.2.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 1.2.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/theme":
+        specifier: 1.2.0
+        version: 1.2.0
+      "@timmbr/ui":
+        specifier: 1.4.2
+        version: 1.4.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils":
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.2.0
+        version: 1.2.0
       lucide-react:
         specifier: ^1.47.0
         version: 1.47.0(react@19.0.0)
@@ -154,20 +154,20 @@ importers:
         specifier: 1.0.0-beta
         version: 1.0.0-beta(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons":
-        specifier: 1.2.0
-        version: 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.1
+        version: 1.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/motion":
-        specifier: 1.1.0
-        version: 1.1.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/theme":
-        specifier: 1.1.0
-        version: 1.1.0
-      "@timmbr/ui":
         specifier: 1.2.0
-        version: 1.2.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 1.2.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/theme":
+        specifier: 1.2.0
+        version: 1.2.0
+      "@timmbr/ui":
+        specifier: 1.4.2
+        version: 1.4.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils":
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.2.0
+        version: 1.2.0
       lucide-react:
         specifier: ^1.47.0
         version: 1.47.0(react@19.0.0)
@@ -242,20 +242,20 @@ importers:
         specifier: 1.0.0-beta
         version: 1.0.0-beta(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons":
-        specifier: 1.2.0
-        version: 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.1
+        version: 1.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/motion":
-        specifier: 1.1.0
-        version: 1.1.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/theme":
-        specifier: 1.1.0
-        version: 1.1.0
-      "@timmbr/ui":
         specifier: 1.2.0
-        version: 1.2.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 1.2.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/theme":
+        specifier: 1.2.0
+        version: 1.2.0
+      "@timmbr/ui":
+        specifier: 1.4.2
+        version: 1.4.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils":
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.2.0
+        version: 1.2.0
       lucide-react:
         specifier: ^1.47.0
         version: 1.47.0(react@19.0.0)
@@ -330,20 +330,20 @@ importers:
         specifier: 1.0.0-beta
         version: 1.0.0-beta(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons":
-        specifier: 1.2.0
-        version: 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.1
+        version: 1.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/motion":
-        specifier: 1.1.0
-        version: 1.1.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/theme":
-        specifier: 1.1.0
-        version: 1.1.0
-      "@timmbr/ui":
         specifier: 1.2.0
-        version: 1.2.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 1.2.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/theme":
+        specifier: 1.2.0
+        version: 1.2.0
+      "@timmbr/ui":
+        specifier: 1.4.2
+        version: 1.4.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils":
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.2.0
+        version: 1.2.0
       lucide-react:
         specifier: ^1.47.0
         version: 1.47.0(react@19.0.0)
@@ -418,20 +418,20 @@ importers:
         specifier: 1.0.0-beta
         version: 1.0.0-beta(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons":
-        specifier: 1.2.0
-        version: 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.1
+        version: 1.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/motion":
-        specifier: 1.1.0
-        version: 1.1.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/theme":
-        specifier: 1.1.0
-        version: 1.1.0
-      "@timmbr/ui":
         specifier: 1.2.0
-        version: 1.2.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 1.2.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/theme":
+        specifier: 1.2.0
+        version: 1.2.0
+      "@timmbr/ui":
+        specifier: 1.4.2
+        version: 1.4.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils":
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.2.0
+        version: 1.2.0
       lucide-react:
         specifier: ^1.47.0
         version: 1.47.0(react@19.0.0)
@@ -2605,35 +2605,35 @@ packages:
       react: ">=18.0.0"
       react-dom: ">=18.0.0"
 
-  "@timmbr/icons@1.2.0":
+  "@timmbr/icons@1.2.1":
     resolution:
       {
-        integrity: sha512-K5q/WmBHVFXL2+/uDSEsXZOXxbENZWroseQjj9hiC00KcnvxnUO/iWd95GF0ZxZxkHZ7OSB1RIDEmowbErSsHQ==,
+        integrity: sha512-u9bfGMQSU0zxoEOIy2GlBIAjmdGoa8scEqeeeDEnVqhPADjjIJ1D7gpGdhTVHOZ+m1VpY7ocQBCbjcvfJr4k4w==,
       }
     peerDependencies:
       react: ">=18.0.0"
       react-dom: ">=18.0.0"
 
-  "@timmbr/motion@1.1.0":
+  "@timmbr/motion@1.2.0":
     resolution:
       {
-        integrity: sha512-FBOe2gct52wcovckkitWU+QFrBytt62G7if05n5qSle3mD+TAyK6fwLvM9/vfgswjwC0DaIIP4vK/JB81fWRcA==,
+        integrity: sha512-31HYc5mOpHcM89xyuLkPvp6flW+UPV81Ng9sY+EgyvCoRiurrHQiXJpKnXdsP36TgZlNaKbWzlr3Rt9u93MqTw==,
       }
     peerDependencies:
       motion: ">=11.0.0"
       react: ">=18.0.0"
       react-dom: ">=18.0.0"
 
-  "@timmbr/theme@1.1.0":
+  "@timmbr/theme@1.2.0":
     resolution:
       {
-        integrity: sha512-X7wBIZy1vYamSfhBQm8wAX8tW0WAtCmV6286QaVkayU5NdxdssyN3PiXuQIjFI1v39kIxqVCYx1JiJcxS0pNDA==,
+        integrity: sha512-y2+sEYA+fy8cfjnvUEpwRRcHYWQfy7+y1e34TEm/6Ss2Tff/pW67Iz/XuzzT4mJSfbLVBsfoSWuevLi5WYEbSw==,
       }
 
-  "@timmbr/ui@1.2.0":
+  "@timmbr/ui@1.4.2":
     resolution:
       {
-        integrity: sha512-Z4jM1Eu9FDGxUCIxeTQ9rSJFCHqXCnOqqoeUJ4xqTA7YdPJ5AqhBcmGtHZk78ipgtFbplI+KdAqhBaVQC9pXVg==,
+        integrity: sha512-9BPKePv8SePlw8bOXJjOJJrqRAio/6dP5FWHPOFkjUdbD7zbALM0arqmJQqW8I7J+wItPQQvi9UDxkWxXHWmpQ==,
       }
     peerDependencies:
       next: ">=13.0.0 || >=14.0.0 || >=15.0.0 || >=16.0.0"
@@ -2643,10 +2643,10 @@ packages:
       next:
         optional: true
 
-  "@timmbr/utils@1.1.0":
+  "@timmbr/utils@1.2.0":
     resolution:
       {
-        integrity: sha512-/KpM+x++MzoiH+AyjyGOU7CQq4qs9QxEtP8rb+0uioWQqgpHFgA5/wKZHWtlBNrBQ68uwg+ti+RV2mN6xdlZrg==,
+        integrity: sha512-ETnPZPylwRew03X//NJ0ZLmUjI3u0o4KWdhZv+0pxHNNbnv4l2vnz5NY83/5WCjkPyacY1bvHOJssOKjcYNc/A==,
       }
 
   "@turbo/darwin-64@2.11.2":
@@ -7753,23 +7753,23 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  "@timmbr/icons@1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
+  "@timmbr/icons@1.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
     dependencies:
-      "@timmbr/utils": 1.1.0
+      "@timmbr/utils": 1.2.0
       lucide-react: 1.47.0(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  "@timmbr/motion@1.1.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
+  "@timmbr/motion@1.2.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
     dependencies:
-      "@timmbr/utils": 1.1.0
+      "@timmbr/utils": 1.2.0
       motion: 12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  "@timmbr/theme@1.1.0": {}
+  "@timmbr/theme@1.2.0": {}
 
-  "@timmbr/ui@1.2.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
+  "@timmbr/ui@1.4.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
     dependencies:
       "@radix-ui/react-accordion": 1.2.20(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@radix-ui/react-alert-dialog": 1.1.23(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -7789,10 +7789,10 @@ snapshots:
       "@radix-ui/react-toast": 1.2.23(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@radix-ui/react-tooltip": 1.2.16(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/hooks": 1.0.0-beta(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/icons": 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/motion": 1.1.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/theme": 1.1.0
-      "@timmbr/utils": 1.1.0
+      "@timmbr/icons": 1.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/motion": 1.2.0(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/theme": 1.2.0
+      "@timmbr/utils": 1.2.0
       class-variance-authority: 0.7.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
@@ -7803,7 +7803,7 @@ snapshots:
       - "@types/react-dom"
       - motion
 
-  "@timmbr/utils@1.1.0":
+  "@timmbr/utils@1.2.0":
     dependencies:
       clsx: 2.1.1
       jwt-decode: 4.0.0

@@ -10,9 +10,11 @@ export const env = createEnv({
     AUTH_ZONE_URL: z.string().url().default("http://localhost:3001"),
     PRODUCTS_ZONE_URL: z.string().url().default("http://localhost:3002"),
     CHECKOUT_ZONE_URL: z.string().url().default("http://localhost:3003"),
+    ACCOUNT_ZONE_URL: z.string().url().default("http://localhost:3004"),
   },
   client: {
     NEXT_PUBLIC_DOMAIN: z.string().min(1).default("localhost:3000"),
+    NEXT_PUBLIC_API_URL: z.string().url().default("http://localhost:4000"),
   },
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
@@ -20,7 +22,9 @@ export const env = createEnv({
     AUTH_ZONE_URL: process.env.AUTH_ZONE_URL,
     PRODUCTS_ZONE_URL: process.env.PRODUCTS_ZONE_URL,
     CHECKOUT_ZONE_URL: process.env.CHECKOUT_ZONE_URL,
+    ACCOUNT_ZONE_URL: process.env.ACCOUNT_ZONE_URL,
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   emptyStringAsUndefined: true,

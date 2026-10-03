@@ -1,14 +1,13 @@
-import { Container, Center, Heading } from "@timmbr/ui";
-import { strings } from "./strings";
+import * as React from "react";
+import { Stack } from "@timmbr/ui";
+import { resolveLandingSections } from "./page.helper";
 
-export default function ShellPage() {
+export default async function ShellPage() {
+  const renderedSections = await resolveLandingSections();
+
   return (
-    <Container maxWidth="xl" padded className="py-24">
-      <Center>
-        <Heading level={1} font="display">
-          {strings.appName}
-        </Heading>
-      </Center>
-    </Container>
+    <Stack gap={8} className="w-full pb-16">
+      {renderedSections}
+    </Stack>
   );
 }

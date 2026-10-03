@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Manrope, Outfit } from "next/font/google";
 import { TimmbrConfigProvider, Container } from "@timmbr/ui";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import "./globals.css";
 import { strings } from "./strings";
 
@@ -42,13 +44,15 @@ export default function RootLayout({
       style={{ colorScheme: "light" }}
       className={`${manrope.variable} ${dmSerif.variable} ${outfit.variable}`}
     >
-      <body>
+      <body className="flex min-h-screen flex-col">
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
-          <main className="min-h-screen">
-            <Container maxWidth="xl" padded>
+          <Header />
+          <main className="flex-1">
+            <Container maxWidth="2xl" padded>
               {children}
             </Container>
           </main>
+          <Footer />
         </TimmbrConfigProvider>
       </body>
     </html>

@@ -22,11 +22,11 @@ const YALC_EXEC = fs.existsSync(localYalcCmd)
   : "pnpm exec yalc";
 
 const CANONICAL_VERSIONS = {
-  "@timmbr/ui": "1.2.0",
-  "@timmbr/icons": "1.2.0",
-  "@timmbr/theme": "1.1.0",
-  "@timmbr/motion": "1.1.0",
-  "@timmbr/utils": "1.1.0",
+  "@timmbr/ui": "1.4.2",
+  "@timmbr/icons": "1.2.1",
+  "@timmbr/theme": "1.2.0",
+  "@timmbr/motion": "1.2.0",
+  "@timmbr/utils": "1.2.0",
   "@timmbr/hooks": "1.0.0-beta",
 };
 
@@ -159,6 +159,43 @@ function getPackageStatus(zoneDir, pkgName, pkgJson) {
     return { status: "registry", details: `Registry (${version || "npm"})` };
   } catch (err) {
     return { status: "unknown", details: err.message };
+  }
+}
+
+const WORKSPACE_YAML_PATH = path.resolve(ROOT_DIR, "pnpm-workspace.yaml");
+
+function syncWorkspaceOverrides() {
+  if (!fs.existsSync(WORKSPACE_YAML_PATH)) return;
+  const zones = findZones();
+  const linkedPackages = new Set();
+
+  for (const zone of zones) {
+    const allDeps = {
+      ...zone.pkgJson?.dependencies,
+      ...zone.pkgJson?.devDependencies,
+    };
+    for (const [dep, ver] of Object.entries(allDeps)) {
+      if (typeof ver === "string" && ver.startsWith("file:.yalc")) {
+        linkedPackages.add(dep);
+      }
+    }
+  }
+
+  const yaml = fs.readFileSync(WORKSPACE_YAML_PATH, "utf8");
+  const baseYaml = yaml.split(/^overrides:/m)[0].trimEnd();
+
+  if (linkedPackages.size === 0) {
+    fs.writeFileSync(WORKSPACE_YAML_PATH, `${baseYaml}\n`, "utf8");
+  } else {
+    const overridesLines = Array.from(linkedPackages)
+      .sort()
+      .map((pkg) => `  "${pkg}": "file:zones/shell/.yalc/${pkg}"`)
+      .join("\n");
+    fs.writeFileSync(
+      WORKSPACE_YAML_PATH,
+      `${baseYaml}\n\noverrides:\n${overridesLines}\n`,
+      "utf8",
+    );
   }
 }
 
@@ -300,6 +337,7 @@ function handleLink(dsPackages, zones, specifiedTargets = []) {
   }
 
   if (anyLinked) {
+    syncWorkspaceOverrides();
     console.log(
       `\n\x1b[36m[Yalc] Running pnpm install across storefront...\x1b[0m`,
     );
@@ -402,6 +440,7 @@ function handleUnlink(zones, specifiedTargets = []) {
     }
 
     if (anyUnlinked) {
+      syncWorkspaceOverrides();
       console.log(
         "\n\x1b[36mRestoring registry packages via pnpm install...\x1b[0m",
       );
@@ -466,6 +505,8 @@ function handleUnlink(zones, specifiedTargets = []) {
       }
     }
 
+    syncWorkspaceOverrides();
+
     console.log(
       "\n\x1b[36mRestoring registry packages via pnpm install...\x1b[0m",
     );
@@ -508,6 +549,18 @@ function handleCheck(zones) {
           details: "found .yalc or yalc.lock",
         });
       }
+    }
+  }
+
+  // Check pnpm-workspace.yaml for overrides
+  if (fs.existsSync(WORKSPACE_YAML_PATH)) {
+    const yaml = fs.readFileSync(WORKSPACE_YAML_PATH, "utf8");
+    if (yaml.includes("overrides:") && yaml.includes(".yalc")) {
+      linkedItems.push({
+        location: "pnpm-workspace.yaml",
+        pkg: "overrides",
+        details: "contains local yalc overrides",
+      });
     }
   }
 
