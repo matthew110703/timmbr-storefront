@@ -9,11 +9,10 @@ To ensure deterministic local development without port collisions across multipl
 | Application      | Role                               | Port      | Path Prefix    | Notes                                             |
 | ---------------- | ---------------------------------- | --------- | -------------- | ------------------------------------------------- |
 | `zones/shell`    | Storefront Landing & Ingress Proxy | **3000**  | `/`            | Serves root landing page and reverse proxy router |
-| `zones/auth`     | Authentication (Login/Register)    | **3001**  | `/auth`        | Dedicated auth zone                               |
-| `zones/products` | Product Catalog & Details          | **3002**  | `/products`    | Product catalog zone                              |
-| `zones/checkout` | Dedicated Checkout Flow            | **3003**  | `/checkout`    | Checkout & order confirmation zone                |
-| `zones/account`  | User Profile, Orders & Settings    | **3004**  | `/account`     | Account & profile management zone                 |
-| `...`            | Subsequent Zones                   | **3005+** | `/<subpath-n>` | Increment sequentially                            |
+| `zones/products` | Product Catalog & Details          | **3001**  | `/products`    | Product catalog zone                              |
+| `zones/checkout` | Dedicated Checkout Flow            | **3002**  | `/checkout`    | Checkout & order confirmation zone                |
+| `zones/account`  | User Profile, Orders & Settings    | **3003**  | `/account`     | Account & profile management zone                 |
+| `...`            | Subsequent Zones                   | **3004+** | `/<subpath-n>` | Increment sequentially                            |
 
 ---
 

@@ -53,6 +53,16 @@ export interface PerksAndOffersSectionData extends BaseSectionData {
   discount?: DiscountOffer;
 }
 
+export interface AuthBannerSectionData extends BaseSectionData {
+  type: "auth-banner";
+  title?: string;
+  subtitle?: string;
+  promoBadge?: string;
+  termsNotice?: string;
+  imageUrl?: string;
+  iconUrl?: string;
+}
+
 export interface CategoryItem {
   id: string;
   name: string;
@@ -157,6 +167,7 @@ export type PageSection =
   | ExploreCategorySectionData
   | TrendingSectionData
   | ConsultationSectionData
+  | AuthBannerSectionData
   | BaseSectionData;
 
 export interface PageResponse {
@@ -213,4 +224,13 @@ export function isConsultationSection(
   section: PageSection,
 ): section is ConsultationSectionData {
   return section.type === "consultation";
+}
+
+/**
+ * Type guard for Auth Modal Banner Section Data
+ */
+export function isAuthBannerSection(
+  section: PageSection,
+): section is AuthBannerSectionData {
+  return section.type === "auth-banner";
 }

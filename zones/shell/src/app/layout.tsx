@@ -3,6 +3,8 @@ import { DM_Serif_Display, Manrope, Outfit } from "next/font/google";
 import { TimmbrConfigProvider, Container } from "@timmbr/ui";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { AuthModalHost } from "@timmbr/auth";
+import { FALLBACK_AUTH_BANNER } from "@/lib/auth/server";
 import "./globals.css";
 import { strings } from "./strings";
 
@@ -53,6 +55,8 @@ export default function RootLayout({
             </Container>
           </main>
           <Footer />
+          {/* Session + sign-in modal (shared with every zone via @timmbr/auth) */}
+          <AuthModalHost fallbackBanner={FALLBACK_AUTH_BANNER} />
         </TimmbrConfigProvider>
       </body>
     </html>

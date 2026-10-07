@@ -4,6 +4,11 @@ export const strings = {
     description: "User Profile, Order History, Addresses & Settings",
   },
   appName: "Account",
+  account: {
+    greeting: (name: string) =>
+      `Hello, ${name.trim().split(/\s+/)[0] || "there"}`,
+    logout: "Log out",
+  },
   loading: {
     message: "Loading...",
   },

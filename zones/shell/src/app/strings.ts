@@ -50,10 +50,9 @@ export const strings = {
       },
     ],
     actions: {
-      profile: {
-        label: "PROFILE",
-        ariaLabel: "User Account & Authentication",
-        href: "/auth",
+      // Profile labels (LOGIN / first name) come from @timmbr/auth.
+      account: {
+        href: "/account",
       },
       cart: {
         label: "CART",
@@ -191,6 +190,14 @@ export const strings = {
     fallbackMessage:
       "An unexpected error occurred in the shell ingress runtime.",
     retryButton: "Try Again",
+  },
+  auth: {
+    banner: {
+      title: "FRESH",
+      subtitle: "Arrivals August",
+      promoBadge: "UPTO 20% OFF",
+      termsNotice: "*T&C Apply",
+    },
   },
 } as const;
 

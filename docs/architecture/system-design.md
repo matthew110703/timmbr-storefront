@@ -17,7 +17,8 @@ The platform is structured as an **apps-only monorepo** utilizing **Next.js Nati
 2. **Apps-Only Monorepo Workspace (`zones/`)**: Applications live strictly in `zones/`. No local component libraries live in this repository.
 3. **Autonomous Deployments**: Each zone application in `zones/` is completely decoupled. Deploying an update to any secondary zone requires zero rebuilds or redeployments of `zones/shell` or sibling zones.
 4. **Transparent Ingress Proxying**: The `shell` application hosts the domain root (`/`, Port `8000`) and acts as the central reverse-proxy router, proxying requests for sub-paths to independent zone apps seamlessly under a unified domain.
-5. **Modern Rust-Powered Compiler Stack**: Standardized on Turbopack for local development, SWC for production compilation, and React Compiler for automatic component memoization.
+5. **Shell-Owned Sessions**: The shell is the only app with _server-side_ auth code: its `proxy.ts` refreshes the session and gates protected paths for every zone, and it serves `/api/auth/*` (sign-in, logout, session, banner) and `/api/core/*` (pass-through for client components). The _browser side_ (session store, sign-in modal, header profile action) is the published `@timmbr/auth` package from timmbr-ds. Every zone mounts `<AuthModalHost />` next to `{children}` and uses `useProfileAction()` in its header, so sign-in opens in place on any page and calls the shell's same-origin routes. Zones read the httpOnly `timmbr_access_token` cookie (via `@timmbr/utils`) and redirect to `/?signin=1&returnTo=<path>` when timmbr-core answers 401. Wire types live in `@timmbr/auth/contract`, which the shell's handlers import too.
+6. **Modern Rust-Powered Compiler Stack**: Standardized on Turbopack for local development, SWC for production compilation, and React Compiler for automatic component memoization.
 
 ---
 

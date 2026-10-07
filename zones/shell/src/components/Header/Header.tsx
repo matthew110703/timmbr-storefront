@@ -2,13 +2,21 @@
 
 import Image from "next/image";
 import { NavHeader } from "@timmbr/ui";
+import { useProfileAction } from "@timmbr/auth";
 import { strings } from "@/app/strings";
 import { ASSETS } from "../../../public";
 
 export function Header() {
+  // LOGIN / skeleton while loading / first name: same behaviour in every zone.
+  const { profileAction, onAuthTrigger } = useProfileAction({
+    accountHref: strings.header.actions.account.href,
+  });
+
   return (
     <NavHeader
       sticky
+      authMode="modal"
+      onAuthTrigger={onAuthTrigger}
       showOfferBanner={false}
       containerMaxWidth="2xl"
       branding={{
@@ -53,11 +61,7 @@ export function Header() {
         })),
       }}
       actions={{
-        profile: {
-          label: strings.header.actions.profile.label,
-          href: strings.header.actions.profile.href,
-          ariaLabel: strings.header.actions.profile.ariaLabel,
-        },
+        profile: profileAction,
         cart: {
           label: strings.header.actions.cart.label,
           href: strings.header.actions.cart.href,

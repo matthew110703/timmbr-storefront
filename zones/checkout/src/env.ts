@@ -6,7 +6,9 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
-    PORT: z.coerce.number().default(3003),
+    PORT: z.coerce.number().default(3002),
+    // timmbr-core, as reachable from this zone's server
+    CORE_API_URL: z.string().url().default("http://localhost:8000"),
   },
   client: {
     NEXT_PUBLIC_DOMAIN: z.string().min(1).default("localhost:3000"),
@@ -14,6 +16,7 @@ export const env = createEnv({
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
     PORT: process.env.PORT,
+    CORE_API_URL: process.env.CORE_API_URL,
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,

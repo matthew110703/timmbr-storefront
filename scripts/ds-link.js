@@ -22,12 +22,13 @@ const YALC_EXEC = fs.existsSync(localYalcCmd)
   : "pnpm exec yalc";
 
 const CANONICAL_VERSIONS = {
-  "@timmbr/ui": "1.4.2",
-  "@timmbr/icons": "1.2.1",
-  "@timmbr/theme": "1.2.0",
-  "@timmbr/motion": "1.2.0",
-  "@timmbr/utils": "1.2.0",
-  "@timmbr/hooks": "1.0.0-beta",
+  "@timmbr/ui": "1.5.0",
+  "@timmbr/motion": "1.2.1",
+  "@timmbr/theme": "1.3.0",
+  "@timmbr/icons": "1.3.0",
+  "@timmbr/hooks": "1.0.0",
+  "@timmbr/utils": "1.3.0",
+  "@timmbr/auth": "1.0.0",
 };
 
 function getCanonicalVersion(dep) {

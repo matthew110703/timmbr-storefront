@@ -1,15 +1,38 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import AccountPage from "./page";
 import { strings } from "./strings";
 
+const requireUser = vi.hoisted(() => vi.fn());
+vi.mock("@/lib/session", () => ({ requireUser }));
+
+import AccountPage from "./page";
+
 describe("AccountPage", () => {
-  it("renders the account title heading correctly", () => {
-    render(<AccountPage />);
-    const heading = screen.getByRole("heading", {
-      level: 1,
-      name: strings.appName,
+  it("renders the signed-in user verified by timmbr-core", async () => {
+    requireUser.mockResolvedValue({
+      id: "u1",
+      name: "Daenerys Targaryen",
+      email: "dany@example.com",
     });
-    expect(heading).toBeInTheDocument();
+
+    render(await AccountPage());
+
+    expect(requireUser).toHaveBeenCalledWith("/account");
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: strings.account.greeting("Daenerys Targaryen"),
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("dany@example.com")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: strings.account.logout }),
+    ).toBeInTheDocument();
+  });
+
+  it("does not render without a session (requireUser redirects)", async () => {
+    requireUser.mockRejectedValue(new Error("NEXT_REDIRECT"));
+
+    await expect(AccountPage()).rejects.toThrow("NEXT_REDIRECT");
   });
 });

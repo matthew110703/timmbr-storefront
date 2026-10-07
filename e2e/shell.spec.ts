@@ -27,7 +27,10 @@ test.describe("Ingress Shell E2E", () => {
     await expect(page.getByRole("link", { name: "Bedroom" })).toBeVisible();
 
     // Action buttons
-    await expect(page.getByRole("link", { name: /profile/i })).toBeVisible();
+    // Signed out, the profile action is a button that opens the auth modal
+    await expect(
+      page.getByRole("button", { name: /user account/i }).first(),
+    ).toBeVisible();
     await expect(page.getByRole("link", { name: /cart/i })).toBeVisible();
 
     // Search trigger

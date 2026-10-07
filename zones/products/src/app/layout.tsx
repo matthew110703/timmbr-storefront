@@ -3,6 +3,8 @@ import { DM_Serif_Display, Manrope, Outfit } from "next/font/google";
 import { TimmbrConfigProvider, Container } from "@timmbr/ui";
 import "./globals.css";
 import { strings } from "./strings";
+import { AuthModalHost } from "@timmbr/auth";
+import { Header } from "@/components/Header";
 
 const dmSerif = DM_Serif_Display({
   weight: ["400"],
@@ -44,11 +46,14 @@ export default function RootLayout({
     >
       <body>
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
+          <Header />
           <main className="min-h-screen">
             <Container maxWidth="xl" padded>
               {children}
             </Container>
           </main>
+          {/* Session + sign-in modal, shared with every zone via @timmbr/auth */}
+          <AuthModalHost />
         </TimmbrConfigProvider>
       </body>
     </html>

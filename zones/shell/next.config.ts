@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     "@timmbr/icons",
     "@timmbr/hooks",
     "@timmbr/utils",
+    "@timmbr/auth",
   ],
   images: {
     remotePatterns: [
@@ -29,30 +30,15 @@ const nextConfig: NextConfig = {
   },
 
   async rewrites() {
-    const AUTH_ZONE_URL = process.env.AUTH_ZONE_URL || "http://localhost:3001";
     const PRODUCTS_ZONE_URL =
-      process.env.PRODUCTS_ZONE_URL || "http://localhost:3002";
+      process.env.PRODUCTS_ZONE_URL || "http://localhost:3001";
     const CHECKOUT_ZONE_URL =
-      process.env.CHECKOUT_ZONE_URL || "http://localhost:3003";
+      process.env.CHECKOUT_ZONE_URL || "http://localhost:3002";
     const ACCOUNT_ZONE_URL =
-      process.env.ACCOUNT_ZONE_URL || "http://localhost:3004";
+      process.env.ACCOUNT_ZONE_URL || "http://localhost:3003";
 
     return [
-      // Secondary zone: auth (Port 3001)
-      {
-        source: "/auth",
-        destination: `${AUTH_ZONE_URL}/auth`,
-      },
-      {
-        source: "/auth/:path*",
-        destination: `${AUTH_ZONE_URL}/auth/:path*`,
-      },
-      {
-        source: "/auth-static/:path*",
-        destination: `${AUTH_ZONE_URL}/auth-static/:path*`,
-      },
-
-      // Secondary zone: products (Port 3002)
+      // Secondary zone: products (Port 3001)
       {
         source: "/products",
         destination: `${PRODUCTS_ZONE_URL}/products`,
@@ -66,7 +52,7 @@ const nextConfig: NextConfig = {
         destination: `${PRODUCTS_ZONE_URL}/products-static/:path*`,
       },
 
-      // Secondary zone: checkout (Port 3003)
+      // Secondary zone: checkout (Port 3002)
       {
         source: "/checkout",
         destination: `${CHECKOUT_ZONE_URL}/checkout`,
@@ -80,7 +66,7 @@ const nextConfig: NextConfig = {
         destination: `${CHECKOUT_ZONE_URL}/checkout-static/:path*`,
       },
 
-      // Secondary zone: account (Port 3004)
+      // Secondary zone: account (Port 3003)
       {
         source: "/account",
         destination: `${ACCOUNT_ZONE_URL}/account`,
