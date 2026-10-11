@@ -38,3 +38,6 @@ pnpm-debug.log*
 .DS_Store
 *.pem
 Thumbs.db
+
+# Next.js generated (rewritten by dev/build)
+next-env.d.ts
