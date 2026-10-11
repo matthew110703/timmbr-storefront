@@ -38,7 +38,6 @@ export const PerksAndOffers: React.FC<PerksAndOffersProps> = ({
 
   return (
     <section
-      title={title}
       aria-label={title}
       data-slot="shell-perks-and-offers"
       className={`w-full ${className ?? ""}`}

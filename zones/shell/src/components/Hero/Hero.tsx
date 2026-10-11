@@ -31,7 +31,6 @@ export const Hero: React.FC<HeroProps> = ({
 
   return (
     <section
-      title={title}
       aria-label={title}
       data-slot="shell-hero-section"
       className={`relative w-full rounded-2xl overflow-hidden min-h-[560px] sm:min-h-[640px] lg:min-h-[700px] flex items-center shadow-lg my-6 sm:my-8 ${className ?? ""}`}

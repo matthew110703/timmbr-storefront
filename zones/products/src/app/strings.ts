@@ -52,6 +52,16 @@ export const strings = {
       // Profile labels (LOGIN / first name) come from @timmbr/auth.
       account: {
         href: "/account",
+        /** Signed-in menu (desktop); "Log out" is added by @timmbr/auth. */
+        menu: [
+          { id: "orders", label: "My orders", href: "/account/orders" },
+          { id: "account", label: "Your account", href: "/account/security" },
+        ],
+      },
+      wishlist: {
+        label: "WISH LIST",
+        ariaLabel: "Wishlist",
+        href: "/account/wishlist",
       },
       cart: {
         label: "CART",

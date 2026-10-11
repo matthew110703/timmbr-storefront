@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Manrope, Outfit } from "next/font/google";
 import { TimmbrConfigProvider, Container } from "@timmbr/ui";
+import { AuthModalHost } from "@timmbr/auth";
+import { Header } from "@/components/Header";
 import "./globals.css";
 import { strings } from "./strings";
 
@@ -44,11 +46,13 @@ export default function RootLayout({
     >
       <body>
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
-          <main className="min-h-screen">
-            <Container maxWidth="xl" padded>
-              {children}
-            </Container>
-          </main>
+          <Header />
+          {/* Vertical page padding: the DS Container has no paddingY option yet. */}
+          <Container asChild maxWidth="2xl" className="py-6 lg:py-10">
+            <main>{children}</main>
+          </Container>
+          {/* Session + sign-in modal, shared with every zone via @timmbr/auth */}
+          <AuthModalHost />
         </TimmbrConfigProvider>
       </body>
     </html>

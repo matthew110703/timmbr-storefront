@@ -47,11 +47,10 @@ export default function RootLayout({
       <body>
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
           <Header />
-          <main className="min-h-screen">
-            <Container maxWidth="xl" padded>
-              {children}
-            </Container>
-          </main>
+          {/* Same width as the header, so content and header edges line up. */}
+          <Container asChild maxWidth="2xl">
+            <main>{children}</main>
+          </Container>
           {/* Session + sign-in modal, shared with every zone via @timmbr/auth */}
           <AuthModalHost />
         </TimmbrConfigProvider>

@@ -44,11 +44,9 @@ export default function RootLayout({
     >
       <body>
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
-          <main className="min-h-screen">
-            <Container maxWidth="xl" padded>
-              {children}
-            </Container>
-          </main>
+          <Container asChild maxWidth="xl">
+            <main>{children}</main>
+          </Container>
         </TimmbrConfigProvider>
       </body>
     </html>

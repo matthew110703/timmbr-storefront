@@ -41,7 +41,6 @@ export const Trending: React.FC<TrendingProps> = ({
 
   return (
     <section
-      title={title}
       aria-label={title}
       data-slot="shell-trending"
       className={`w-full ${className ?? ""}`}

@@ -30,7 +30,6 @@ export const ExploreCategories: React.FC<ExploreCategoriesProps> = ({
 
   return (
     <section
-      title={title}
       aria-label={title}
       data-slot="shell-explore-categories"
       className={`w-full ${className ?? ""}`}

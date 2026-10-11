@@ -29,7 +29,6 @@ export const Consultation: React.FC<ConsultationProps> = ({
 
   return (
     <section
-      title={title}
       aria-label={title}
       data-slot="shell-consultation-section"
       className={`relative w-full rounded-xs overflow-hidden bg-surface-dark min-h-[380px] sm:min-h-[420px] lg:min-h-[460px] flex items-center shadow-xs ${className ?? ""}`}

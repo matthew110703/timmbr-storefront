@@ -2,6 +2,7 @@ import type { AuthRouteName } from "@timmbr/auth/contract";
 import type { Handler } from "../http";
 import { bannerHandler } from "./banner";
 import { oauthCallback, oauthStart } from "./oauth";
+import { logoutAll, passwordChange } from "./security";
 import { logout, session } from "./session";
 import { login, otpSend, otpVerify, passwordSet } from "./sign-in";
 
@@ -15,7 +16,9 @@ export const authHandlers = {
   otpVerify,
   login,
   passwordSet,
+  passwordChange,
   logout,
+  logoutAll,
   session,
   oauthStart,
   oauthCallback,
