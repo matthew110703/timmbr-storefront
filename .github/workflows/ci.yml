@@ -33,6 +33,8 @@ jobs:
     outputs:
       zones: ${{ steps.detect.outputs.zones }}
       any: ${{ steps.detect.outputs.any }}
+      deploy_zones: ${{ steps.deployable.outputs.deploy_zones }}
+      deploy_any: ${{ steps.deployable.outputs.deploy_any }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -76,6 +78,24 @@ jobs:
             node scripts/ci/affected-zones.mjs --zones "${{ inputs.zones }}"
           else
             node scripts/ci/affected-zones.mjs --base "${{ steps.base.outputs.base }}" --head "${{ github.sha }}"
+          fi
+
+      # Only zones with a Vercel project (VERCEL_PROJECT_ID_<ZONE> variable)
+      # are deployed; the rest are still checked. Add the variable to enable.
+      - name: Filter deployable zones
+        id: deployable
+        env:
+          ALL_VARS: ${{ toJSON(vars) }}
+          ZONES: ${{ steps.detect.outputs.zones }}
+        run: |
+          deploy=$(jq -c --argjson vars "$ALL_VARS" \
+            '[.[] | select($vars["VERCEL_PROJECT_ID_" + (ascii_upcase | gsub("-"; "_"))] // "" | length > 0)]' <<< "$ZONES")
+          skipped=$(jq -c --argjson d "$deploy" '. - $d' <<< "$ZONES")
+          echo "deploy_zones=$deploy" >> "$GITHUB_OUTPUT"
+          echo "deploy_any=$([ "$deploy" != "[]" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          echo "Deploying: $deploy"
+          if [ "$skipped" != "[]" ]; then
+            echo "::notice::Not deployed (no VERCEL_PROJECT_ID_* variable): $skipped"
           fi
 
   repo-checks:
@@ -150,11 +170,11 @@ jobs:
   deploy-staging:
     name: Deploy staging (${{ matrix.zone }})
     needs: [changes, repo-checks, zone-checks]
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/staging' && needs.changes.outputs.any == 'true'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/staging' && needs.changes.outputs.deploy_any == 'true'
     strategy:
       fail-fast: false
       matrix:
-        zone: ${{ fromJSON(needs.changes.outputs.zones) }}
+        zone: ${{ fromJSON(needs.changes.outputs.deploy_zones) }}
     uses: ./.github/workflows/deploy-zone.yml
     with:
       zone: ${{ matrix.zone }}
@@ -164,11 +184,11 @@ jobs:
   deploy-production:
     name: Deploy production (${{ matrix.zone }})
     needs: [changes, repo-checks, zone-checks]
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.changes.outputs.any == 'true'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.changes.outputs.deploy_any == 'true'
     strategy:
       fail-fast: false
       matrix:
-        zone: ${{ fromJSON(needs.changes.outputs.zones) }}
+        zone: ${{ fromJSON(needs.changes.outputs.deploy_zones) }}
     uses: ./.github/workflows/deploy-zone.yml
     with:
       zone: ${{ matrix.zone }}

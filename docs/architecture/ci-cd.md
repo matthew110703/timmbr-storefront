@@ -35,7 +35,7 @@ node scripts/ci/affected-zones.mjs --zones shell,account   # manual override
 2. **`repo-checks`**: checks for the whole repo: frozen-lockfile install and `prettier --check .`.
 3. **`zone-checks`**: one matrix job per affected zone: `turbo run lint check-types test build --filter=<zone>`. Builds run with `SKIP_ENV_VALIDATION=1` and placeholder URLs, so no secrets are needed. The real env validation happens in the deploy build.
 4. **`ci-ok`**: the single required status check. It passes when every zone job was skipped and fails if anything failed or was cancelled.
-5. **`deploy-staging` / `deploy-production`**: one `deploy-zone.yml` call per affected zone. They run only if all checks passed.
+5. **`deploy-staging` / `deploy-production`**: one `deploy-zone.yml` call per affected zone. They run only if all checks passed. Zones without a `VERCEL_PROJECT_ID_<ZONE>` variable are checked but not deployed (listed in a run notice), so a zone with no Vercel project yet never fails the run.
 
 Concurrency: a newer run cancels an older one on PRs and `staging`. On `main` runs queue instead, so a production deploy is never cut off mid-flight.
 

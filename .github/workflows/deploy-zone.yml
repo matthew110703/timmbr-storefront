@@ -73,6 +73,26 @@ jobs:
             vercel pull --yes --environment=preview --git-branch=staging --token="$VERCEL_TOKEN"
           fi
 
+      # Vercel never returns the value of "Sensitive" env vars, so `vercel pull`
+      # leaves them empty. Their values live in GitHub *environment* secrets
+      # (staging / production) and are written into the pulled env file here.
+      # Add new sensitive vars both to `env:` below and to SENSITIVE_VARS.
+      - name: Inject sensitive env vars
+        env:
+          SENSITIVE_VARS: CORE_INTERNAL_KEY
+          CORE_INTERNAL_KEY: ${{ secrets.CORE_INTERNAL_KEY }}
+        run: |
+          target=$([ "${{ inputs.environment }}" = "production" ] && echo production || echo preview)
+          file=".vercel/.env.$target.local"
+          touch "$file"
+          for name in $SENSITIVE_VARS; do
+            value="${!name}"
+            [ -z "$value" ] && continue
+            sed -i "/^$name=/d" "$file"
+            printf '%s="%s"\n' "$name" "$value" >> "$file"
+            echo "Injected $name"
+          done
+
       - name: Build
         run: |
           if [ "${{ inputs.environment }}" = "production" ]; then
