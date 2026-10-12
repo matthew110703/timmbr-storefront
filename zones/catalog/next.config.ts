@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: "/products",
-  assetPrefix: "/products-static",
+  // No basePath: this zone owns several top-level paths (/products, /category),
+  // each routed here by the shell's rewrites. assetPrefix keeps its assets apart.
+  assetPrefix: "/catalog-static",
   transpilePackages: [
     "@timmbr/ui",
     "@timmbr/theme",
@@ -13,6 +14,8 @@ const nextConfig: NextConfig = {
     "@timmbr/auth",
   ],
   images: {
+    // Keep image optimisation in this zone (the shell owns the root /_next/image).
+    path: "/catalog-static/_next/image",
     remotePatterns: [
       {
         protocol: "https",

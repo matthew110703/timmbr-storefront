@@ -7,7 +7,7 @@ export const env = createEnv({
       .enum(["development", "test", "production"])
       .default("development"),
     PORT: z.coerce.number().default(3000),
-    PRODUCTS_ZONE_URL: z.string().url().default("http://localhost:3001"),
+    CATALOG_ZONE_URL: z.string().url().default("http://localhost:3001"),
     CHECKOUT_ZONE_URL: z.string().url().default("http://localhost:3002"),
     ACCOUNT_ZONE_URL: z.string().url().default("http://localhost:3003"),
     // Server-side sessions (BFF): only the shell holds the internal key
@@ -22,7 +22,7 @@ export const env = createEnv({
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
     PORT: process.env.PORT,
-    PRODUCTS_ZONE_URL: process.env.PRODUCTS_ZONE_URL,
+    CATALOG_ZONE_URL: process.env.CATALOG_ZONE_URL,
     CHECKOUT_ZONE_URL: process.env.CHECKOUT_ZONE_URL,
     ACCOUNT_ZONE_URL: process.env.ACCOUNT_ZONE_URL,
     CORE_API_URL: process.env.CORE_API_URL,

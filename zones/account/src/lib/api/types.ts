@@ -161,3 +161,13 @@ export interface Wishlist {
   items: WishlistItem[];
   itemCount: number;
 }
+
+/** A node of `GET /categories/tree` (active categories, sorted by name). */
+export interface CategoryTreeItem {
+  id: string;
+  name: string;
+  slug: string;
+  logoUrl?: string | null;
+  parentId?: string | null;
+  children?: CategoryTreeItem[];
+}

@@ -19,7 +19,7 @@ Welcome to the central documentation hub for the **@timmbr** storefront and mult
 - **[Environment Strategy](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/conventions/environment.md)**: Cascading `.env` hierarchy and type-safe Zod runtime schema validation.
 - **[Static Strings Convention](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/conventions/strings.md)**: Co-located `strings.ts` files across all route segments for centralized static UI copy.
 - **[Testing Strategy](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/conventions/testing.md)**: Vitest unit testing and Playwright cross-zone E2E tests.
-- **[Zone Application Guidelines](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/conventions/zones.md)**: Structure, requirements (`assetPrefix`, `basePath`), and conventions for creating new zone applications.
+- **[Zone Application Guidelines](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/conventions/zone-guidelines.md)**: Structure, requirements (`assetPrefix`, `basePath`), and conventions for creating new zone applications.
 
 ---
 

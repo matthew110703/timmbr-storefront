@@ -32,6 +32,13 @@ The platform is structured as an **apps-only monorepo** utilizing **Next.js Nati
    - **Create a password** (accounts without one) is a single dialog: a one-time code is sent on open, then `otp/verify` (intent `reset`) gives a setup token for `password/set`.
    - **Forms in overlays** (address, passwords) use the DS `ResponsiveDialog`: a centred dialog on desktop, a bottom sheet with pinned actions on phones.
    - **Addresses:** "Use my current location" pins the browser's position and fills empty fields through timmbr-core's `GET /geo/reverse` (Geoapify; the key stays in core).
+9. **Catalog Zone** (`/products` + `/category`, port 3001):
+   - **No basePath:** the zone owns both top-level paths (shell rewrites each one to it), so category ↔ product navigation is a soft navigation. Assets use `assetPrefix: "/catalog-static"`, and public files live in `public/catalog-static/`.
+   - **URL scheme:**
+     - `/products`: all products, with search via `?q=`.
+     - `/category/<slug>`: one flat, globally unique slug per category at any depth. The breadcrumb and subcategories come from data, not the URL.
+     - `/products/<slug>`: the product page. `?variant=<sku>` selects a variant.
+   - **Listing state lives in the query string:** filters (`brand=a,b`, attribute keys like `material=teak`, `price=min-max`), `sort` and `page`. The filter UI uses `router.push`. Category pages point their canonical URL at the clean path, and filtered combinations get `noindex, follow`.
 
 ---
 

@@ -42,10 +42,20 @@ Allocate the next sequential port according to the [Port Allocation Convention](
 
 In `next.config.ts`:
 
-- Set `basePath: '/<zone-name>'`
-- Set `assetPrefix: '/<zone-name>-static'`
+- Set `assetPrefix: '/<zone-name>-static'` (always required)
+- Set `basePath: '/<zone-name>'` (the default, see below for the exception)
 - Set `reactCompiler: true`
 
 In `zones/shell/next.config.ts`:
 
 - Add the rewrites mapping `/<zone-name>` and `/<zone-name>-static` to the zone's port.
+
+### Zones that own several top-level paths
+
+A `basePath` limits a zone to one URL prefix. A zone that must serve several top-level paths and soft-navigate between them omits `basePath`. `zones/catalog` is the example: it serves `/products` and `/category`.
+
+- Put its routes under matching folders in `src/app/` (`app/products/…`, `app/category/…`). Don't add a root `page.tsx`: `/` belongs to the shell.
+- Add a shell rewrite for each path (`/products`, `/products/:path*`, `/category`, `/category/:path*`) plus `/<zone-name>-static/:path*`.
+- `assetPrefix` doesn't cover `public/`. Keep public files under `public/<zone-name>-static/` so they're served at a path the shell already routes to the zone.
+- Set `images.path: '/<zone-name>-static/_next/image'`, so image optimisation stays in the zone instead of the shell's root `/_next/image`.
+- Links inside the zone use full paths (`/products/x`, `/category/y`), since there is no basePath for next/link to add.

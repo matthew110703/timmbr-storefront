@@ -30,26 +30,35 @@ const nextConfig: NextConfig = {
   },
 
   async rewrites() {
-    const PRODUCTS_ZONE_URL =
-      process.env.PRODUCTS_ZONE_URL || "http://localhost:3001";
+    const CATALOG_ZONE_URL =
+      process.env.CATALOG_ZONE_URL || "http://localhost:3001";
     const CHECKOUT_ZONE_URL =
       process.env.CHECKOUT_ZONE_URL || "http://localhost:3002";
     const ACCOUNT_ZONE_URL =
       process.env.ACCOUNT_ZONE_URL || "http://localhost:3003";
 
     return [
-      // Secondary zone: products (Port 3001)
+      // Secondary zone: catalog (Port 3001). It has no basePath and owns
+      // both /products and /category.
       {
         source: "/products",
-        destination: `${PRODUCTS_ZONE_URL}/products`,
+        destination: `${CATALOG_ZONE_URL}/products`,
       },
       {
         source: "/products/:path*",
-        destination: `${PRODUCTS_ZONE_URL}/products/:path*`,
+        destination: `${CATALOG_ZONE_URL}/products/:path*`,
       },
       {
-        source: "/products-static/:path*",
-        destination: `${PRODUCTS_ZONE_URL}/products-static/:path*`,
+        source: "/category",
+        destination: `${CATALOG_ZONE_URL}/category`,
+      },
+      {
+        source: "/category/:path*",
+        destination: `${CATALOG_ZONE_URL}/category/:path*`,
+      },
+      {
+        source: "/catalog-static/:path*",
+        destination: `${CATALOG_ZONE_URL}/catalog-static/:path*`,
       },
 
       // Secondary zone: checkout (Port 3002)

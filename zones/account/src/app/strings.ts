@@ -14,32 +14,18 @@ export const strings = {
         "Search solid wood furniture, collections, artisanal pieces...",
       popularTitle: "Popular Searches",
       popularTags: [
-        { label: "Dining Tables", href: "/products?category=dining-room" },
-        { label: "Teak Chairs", href: "/products?category=living-room" },
-        { label: "Solid Wood Beds", href: "/products?category=bedroom" },
-        { label: "Outdoor Loungers", href: "/products?category=outdoor" },
-        { label: "Artisan Benches", href: "/products?category=collections" },
+        { label: "Dining Tables", href: "/products?q=dining+table" },
+        { label: "Teak Chairs", href: "/products?q=teak+chair" },
+        { label: "Solid Wood Beds", href: "/products?q=solid+wood+bed" },
+        { label: "Outdoor Loungers", href: "/products?q=outdoor+lounger" },
+        { label: "Artisan Benches", href: "/products?q=bench" },
       ],
     },
-    navItems: [
-      {
-        id: "living-room",
-        label: "Living Room",
-        href: "/products?category=living-room",
-      },
-      {
-        id: "dining-room",
-        label: "Dining Room",
-        href: "/products?category=dining-room",
-      },
-      { id: "bedroom", label: "Bedroom", href: "/products?category=bedroom" },
-      { id: "outdoor", label: "Outdoor", href: "/products?category=outdoor" },
-      {
-        id: "collections",
-        label: "Collections",
-        href: "/products?category=collections",
-      },
-    ],
+    /** Category menu copy; the categories themselves come from timmbr-core. */
+    categoryNav: {
+      viewAll: (name: string) => `All ${name}`,
+      viewMore: "View all",
+    },
     actions: {
       // Profile labels (LOGIN / first name) come from @timmbr/auth.
       account: {

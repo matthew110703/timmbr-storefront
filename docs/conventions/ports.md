@@ -6,13 +6,13 @@ To ensure deterministic local development without port collisions across multipl
 
 ## Port Allocation Matrix
 
-| Application      | Role                               | Port      | Path Prefix    | Notes                                             |
-| ---------------- | ---------------------------------- | --------- | -------------- | ------------------------------------------------- |
-| `zones/shell`    | Storefront Landing & Ingress Proxy | **3000**  | `/`            | Serves root landing page and reverse proxy router |
-| `zones/products` | Product Catalog & Details          | **3001**  | `/products`    | Product catalog zone                              |
-| `zones/checkout` | Dedicated Checkout Flow            | **3002**  | `/checkout`    | Checkout & order confirmation zone                |
-| `zones/account`  | User Profile, Orders & Settings    | **3003**  | `/account`     | Account & profile management zone                 |
-| `...`            | Subsequent Zones                   | **3004+** | `/<subpath-n>` | Increment sequentially                            |
+| Application      | Role                               | Port      | Path Prefix              | Notes                                             |
+| ---------------- | ---------------------------------- | --------- | ------------------------ | ------------------------------------------------- |
+| `zones/shell`    | Storefront Landing & Ingress Proxy | **3000**  | `/`                      | Serves root landing page and reverse proxy router |
+| `zones/catalog`  | Listing, Category & Product Pages  | **3001**  | `/products`, `/category` | Catalog zone (no basePath, owns both paths)       |
+| `zones/checkout` | Dedicated Checkout Flow            | **3002**  | `/checkout`              | Checkout & order confirmation zone                |
+| `zones/account`  | User Profile, Orders & Settings    | **3003**  | `/account`               | Account & profile management zone                 |
+| `...`            | Subsequent Zones                   | **3004+** | `/<subpath-n>`           | Increment sequentially                            |
 
 ---
 

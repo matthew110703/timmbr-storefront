@@ -12,7 +12,7 @@
         "STOREFRONT_URL",
         "ACCOUNT_ZONE_URL",
         "CHECKOUT_ZONE_URL",
-        "PRODUCTS_ZONE_URL",
+        "CATALOG_ZONE_URL",
         "NEXT_PUBLIC_API_URL",
         "NEXT_PUBLIC_DOMAIN",
         "SKIP_ENV_VALIDATION"

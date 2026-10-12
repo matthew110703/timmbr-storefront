@@ -5,6 +5,8 @@ import "./globals.css";
 import { strings } from "./strings";
 import { AuthModalHost } from "@timmbr/auth";
 import { Header } from "@/components/Header";
+import { getCategoryTree } from "@/lib/api/categories";
+import { toNavTree } from "@/lib/category-nav";
 
 const dmSerif = DM_Serif_Display({
   weight: ["400"],
@@ -32,11 +34,14 @@ export const metadata: Metadata = {
   description: strings.metadata.description,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Header menu: cached, and [] if core is unreachable.
+  const categories = toNavTree(await getCategoryTree());
+
   return (
     <html
       lang="en"
@@ -46,7 +51,7 @@ export default function RootLayout({
     >
       <body>
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
-          <Header />
+          <Header categories={categories} />
           {/* Same width as the header, so content and header edges line up. */}
           <Container asChild maxWidth="2xl">
             <main>{children}</main>

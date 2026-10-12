@@ -25,8 +25,8 @@ function securityHeaders(response: NextResponse, request: NextRequest) {
 }
 
 /**
- * Every request enters the storefront here — including /products, /checkout
- * and /account, which next.config then rewrites to their zones. So this is the
+ * Every request enters the storefront here — including /products, /category,
+ * /checkout and /account, which next.config then rewrites to their zones. So this is the
  * one place sessions are refreshed and protected paths are gated.
  */
 export const proxy = createSessionProxy({
@@ -42,6 +42,6 @@ export const config = {
      * - zone assets (*-static) and _next/static, _next/image
      * - metadata files
      */
-    "/((?!api|products-static|checkout-static|account-static|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!api|catalog-static|checkout-static|account-static|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
   ],
 };

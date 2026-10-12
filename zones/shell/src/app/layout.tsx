@@ -3,6 +3,8 @@ import { DM_Serif_Display, Manrope, Outfit } from "next/font/google";
 import { TimmbrConfigProvider, Container } from "@timmbr/ui";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { getCategoryTree } from "@/lib/api/categories";
+import { toNavTree } from "@/lib/category-nav";
 import { AuthModalHost } from "@timmbr/auth";
 import { FALLBACK_AUTH_BANNER } from "@/lib/auth/server";
 import "./globals.css";
@@ -34,11 +36,14 @@ export const metadata: Metadata = {
   description: strings.metadata.description,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Header menu + footer "Shop" links; cached, and [] if core is unreachable.
+  const categories = toNavTree(await getCategoryTree());
+
   return (
     <html
       lang="en"
@@ -48,13 +53,13 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col">
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
-          <Header />
+          <Header categories={categories} />
           <main className="flex-1">
             <Container maxWidth="2xl" padded>
               {children}
             </Container>
           </main>
-          <Footer />
+          <Footer categories={categories} />
           {/* Session + sign-in modal (shared with every zone via @timmbr/auth) */}
           <AuthModalHost fallbackBanner={FALLBACK_AUTH_BANNER} />
         </TimmbrConfigProvider>

@@ -1,15 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { Icon, NavHeader } from "@timmbr/ui";
+import Link from "next/link";
+import { Icon, NavHeader, toNavMenuItems } from "@timmbr/ui";
 import { useProfileAction } from "@timmbr/auth";
 import { Package, User } from "@timmbr/icons";
 import { strings } from "@/app/strings";
+import { toCategoryMenus, type CategoryNavNode } from "@/lib/category-nav";
 
-// Public files are served under the zone's basePath.
+// Public files live under the zone's assetPrefix (public/catalog-static/),
+// a path the shell already routes to this zone.
 const ASSETS = {
-  brandLogo: "/products/timmbr-logo.png",
-  brandMiniLogo: "/products/timmbr-leaf.png",
+  brandLogo: "/catalog-static/timmbr-logo.png",
+  brandMiniLogo: "/catalog-static/timmbr-leaf.png",
 };
 
 /** Desktop profile menu links (from strings); stable across renders. */
@@ -30,13 +33,23 @@ const PROFILE_MENU = strings.header.actions.account.menu.map((item) => ({
   icon: MENU_ICONS[item.id],
 }));
 
-export function Header() {
+export interface HeaderProps {
+  /** Nav roots from timmbr-core, trimmed by the layout (`toNavTree`). */
+  categories?: CategoryNavNode[];
+}
+
+export function Header({ categories = [] }: HeaderProps) {
   // LOGIN / skeleton while loading / first name; LOGIN opens the auth modal
   // right here (mounted in the layout), so the shopper never leaves the page.
   const { profileAction, onAuthTrigger } = useProfileAction({
     accountHref: strings.header.actions.account.href,
     menuItems: PROFILE_MENU,
   });
+  // Category pages are in this zone: next/link, no page reload.
+  const navItems = toNavMenuItems(
+    toCategoryMenus(categories, strings.header.categoryNav),
+    { linkComponent: Link },
+  );
 
   return (
     <NavHeader
@@ -45,6 +58,9 @@ export function Header() {
       onAuthTrigger={onAuthTrigger}
       showOfferBanner={false}
       containerMaxWidth="2xl"
+      // Category and product links stay in this zone: soft navigation.
+      // Links to other zones are marked crossZone (or zone) and stay plain <a>.
+      linkComponent={Link}
       branding={{
         logo: (
           <Image
@@ -67,15 +83,11 @@ export function Header() {
           />
         ),
         href: "/",
+        // "/" is the shell's home page: full navigation.
+        zone: "shell",
         alt: strings.branding.logoAlt,
       }}
-      navigation={{
-        items: strings.header.navItems.map((item) => ({
-          id: item.id,
-          label: item.label,
-          href: item.href,
-        })),
-      }}
+      navigation={{ items: navItems }}
       search={{
         show: true,
         placeholder: strings.header.search.placeholder,
@@ -100,6 +112,8 @@ export function Header() {
           href: strings.header.actions.cart.href,
           ariaLabel: strings.header.actions.cart.ariaLabel,
           count: 0,
+          // The cart lives in the checkout zone: full navigation.
+          crossZone: true,
         },
       }}
     />

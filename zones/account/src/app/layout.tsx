@@ -3,6 +3,8 @@ import { DM_Serif_Display, Manrope, Outfit } from "next/font/google";
 import { TimmbrConfigProvider, Container } from "@timmbr/ui";
 import { AuthModalHost } from "@timmbr/auth";
 import { Header } from "@/components/Header";
+import { getCategoryTree } from "@/lib/api/catalog";
+import { toNavTree } from "@/lib/category-nav";
 import "./globals.css";
 import { strings } from "./strings";
 
@@ -32,11 +34,14 @@ export const metadata: Metadata = {
   description: strings.metadata.description,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Header menu: cached, and [] if core is unreachable.
+  const categories = toNavTree(await getCategoryTree());
+
   return (
     <html
       lang="en"
@@ -46,7 +51,7 @@ export default function RootLayout({
     >
       <body>
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
-          <Header />
+          <Header categories={categories} />
           {/* Vertical page padding: the DS Container has no paddingY option yet. */}
           <Container asChild maxWidth="2xl" className="py-6 lg:py-10">
             <main>{children}</main>

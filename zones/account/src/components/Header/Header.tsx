@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { Icon, NavHeader } from "@timmbr/ui";
+import { Icon, NavHeader, toNavMenuItems } from "@timmbr/ui";
 import { useProfileAction } from "@timmbr/auth";
 import { Package, User } from "@timmbr/icons";
 import { strings } from "@/app/strings";
+import { toCategoryMenus, type CategoryNavNode } from "@/lib/category-nav";
 
 // Public files are served under the zone's basePath.
 const ASSETS = {
@@ -30,13 +31,23 @@ const PROFILE_MENU = strings.header.actions.account.menu.map((item) => ({
   icon: MENU_ICONS[item.id],
 }));
 
-export function Header() {
+export interface HeaderProps {
+  /** Nav roots from timmbr-core, trimmed by the layout (`toNavTree`). */
+  categories?: CategoryNavNode[];
+}
+
+export function Header({ categories = [] }: HeaderProps) {
   // LOGIN / skeleton while loading / first name (desktop: menu); LOGIN opens
   // the auth modal here (mounted in the layout).
   const { profileAction, onAuthTrigger } = useProfileAction({
     accountHref: strings.header.actions.account.href,
     menuItems: PROFILE_MENU,
   });
+  // Category pages live in the catalog zone: full navigation from here.
+  const navItems = toNavMenuItems(
+    toCategoryMenus(categories, strings.header.categoryNav),
+    { crossZone: true },
+  );
 
   return (
     <NavHeader
@@ -69,13 +80,7 @@ export function Header() {
         href: "/",
         alt: strings.branding.logoAlt,
       }}
-      navigation={{
-        items: strings.header.navItems.map((item) => ({
-          id: item.id,
-          label: item.label,
-          href: item.href,
-        })),
-      }}
+      navigation={{ items: navItems }}
       search={{
         show: true,
         placeholder: strings.header.search.placeholder,

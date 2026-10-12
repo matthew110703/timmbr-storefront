@@ -66,6 +66,8 @@ const nextConfig: NextConfig = {
 export default nextConfig;
 ```
 
+Only `assetPrefix` is strictly required by Next.js multi-zones. A zone that owns several top-level paths omits `basePath` and gets one shell rewrite per path. `zones/catalog` (`/products` + `/category`) works this way. See [Zone Guidelines](../conventions/zone-guidelines.md#zones-that-own-several-top-level-paths).
+
 ---
 
 ## 3. Cross-Zone Navigation

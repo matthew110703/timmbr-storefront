@@ -1,5 +1,5 @@
 import { api } from "./client";
-import type { CategoryItem } from "./types";
+import type { CategoryItem, CategoryTreeItem } from "./types";
 import { safeApiCall, type RequestOptions } from "@timmbr/utils";
 
 export interface GetCategoriesParams {
@@ -46,5 +46,25 @@ export async function getCategories(
       }),
     [],
     "[API:getCategories]",
+  );
+}
+
+/**
+ * Active category tree from the roots, three levels deep (root → column →
+ * link), for the header menu and footer. Public, so no session cookie is read.
+ */
+export async function getCategoryTree(
+  options?: RequestOptions,
+): Promise<CategoryTreeItem[]> {
+  return safeApiCall(
+    () =>
+      api.get<CategoryTreeItem[]>("/categories/tree", {
+        params: { depth: 3 },
+        skipAuth: true,
+        next: { revalidate: 600, tags: ["categories"] },
+        ...options,
+      }),
+    [],
+    "[API:getCategoryTree]",
   );
 }

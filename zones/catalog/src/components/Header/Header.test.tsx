@@ -37,10 +37,20 @@ function mockShellSession(user: typeof USER | null) {
   return fetchMock;
 }
 
+const CATEGORIES = [
+  { id: "1", name: "Bedroom", slug: "bedroom", children: [] },
+  {
+    id: "2",
+    name: "Living Room",
+    slug: "living-room",
+    children: [{ id: "3", name: "Sofas", slug: "sofas", children: [] }],
+  },
+];
+
 function renderZone() {
   return render(
     <>
-      <Header />
+      <Header categories={CATEGORIES} />
       <AuthModalHost />
     </>,
   );
@@ -58,9 +68,16 @@ describe("Header", () => {
     expect(
       screen.getAllByAltText(strings.branding.logoAlt).length,
     ).toBeGreaterThan(0);
-    for (const item of strings.header.navItems) {
-      expect(screen.getAllByText(item.label).length).toBeGreaterThan(0);
-    }
+    // Every root opens a menu (labels are never links)
+    expect(
+      screen.queryByRole("link", { name: "Bedroom" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getAllByRole("button", { name: "Bedroom" }).length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByRole("button", { name: "Living Room" }).length,
+    ).toBeGreaterThan(0);
   });
 
   it("shows the signed-in user's first name from the shell's session", async () => {

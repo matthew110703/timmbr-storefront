@@ -75,6 +75,16 @@ export interface CategoryItem {
   updatedAt?: string;
 }
 
+/** A node of core's `GET /categories/tree` (active categories, sorted by name). */
+export interface CategoryTreeItem {
+  id: string;
+  name: string;
+  slug: string;
+  logoUrl?: string | null;
+  parentId?: string | null;
+  children?: CategoryTreeItem[];
+}
+
 export interface QueryConfig {
   source: string;
   limit?: string | number;

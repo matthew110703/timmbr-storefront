@@ -13,13 +13,27 @@ describe("Header", () => {
     expect(logos[0]).toBeInTheDocument();
   });
 
-  it("renders navigation items", () => {
-    render(<Header />);
-    for (const item of strings.header.navItems) {
-      const navLinks = screen.getAllByText(item.label);
-      expect(navLinks.length).toBeGreaterThan(0);
-      expect(navLinks[0]).toBeInTheDocument();
-    }
+  it("renders the root categories as navigation items", () => {
+    const categories = [
+      { id: "1", name: "Bedroom", slug: "bedroom", children: [] },
+      {
+        id: "2",
+        name: "Living Room",
+        slug: "living-room",
+        children: [{ id: "3", name: "Sofas", slug: "sofas", children: [] }],
+      },
+    ];
+    render(<Header categories={categories} />);
+    // Every root opens a menu (labels are never links)
+    expect(
+      screen.queryByRole("link", { name: "Bedroom" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getAllByRole("button", { name: "Bedroom" }).length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByRole("button", { name: "Living Room" }).length,
+    ).toBeGreaterThan(0);
   });
 
   it("renders action buttons for profile and cart", () => {

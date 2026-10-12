@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Card, Text } from "@timmbr/ui";
 import { motion, hoverGestures, tapGestures } from "@timmbr/motion";
 import type { CategoryItem } from "@/lib/api/types";
+import { categoryHref as categoryHrefFor } from "@/lib/category-nav";
 import { getCategoryImage } from "./ExploreCategories.helpers";
 
 export interface CategoryCardProps {
@@ -16,9 +17,7 @@ export interface CategoryCardProps {
  */
 export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   const imageUrl = getCategoryImage(category);
-  const categoryHref = `/products?category=${encodeURIComponent(
-    category.slug || category.name.toLowerCase().replace(/\s+/g, "-"),
-  )}`;
+  const categoryHref = categoryHrefFor(category.slug);
 
   return (
     <Card
