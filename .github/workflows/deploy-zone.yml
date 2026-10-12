@@ -1,0 +1,110 @@
+name: Deploy zone
+
+# Builds and deploys a single zone to its own Vercel project.
+# Called from ci.yml once per affected zone.
+#
+# Per-zone config is looked up by upper-cased zone name, so adding a zone
+# needs no workflow changes, only these repo variables:
+#   VERCEL_PROJECT_ID_<ZONE>   (required)
+#   STAGING_DOMAIN_<ZONE>      (optional; staging alias, e.g. staging.timmbr.com)
+
+on:
+  workflow_call:
+    inputs:
+      zone:
+        type: string
+        required: true
+      environment:
+        description: "staging | production"
+        type: string
+        required: true
+
+jobs:
+  deploy:
+    name: ${{ inputs.zone }} → ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ steps.deploy.outputs.url }}
+    env:
+      VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      TURBO_TELEMETRY_DISABLED: 1
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Resolve zone config
+        env:
+          ALL_VARS: ${{ toJSON(vars) }}
+          ZONE: ${{ inputs.zone }}
+        run: |
+          key=$(echo "$ZONE" | tr '[:lower:]-' '[:upper:]_')
+          project_id=$(jq -r --arg k "VERCEL_PROJECT_ID_$key" '.[$k] // empty' <<< "$ALL_VARS")
+          staging_domain=$(jq -r --arg k "STAGING_DOMAIN_$key" '.[$k] // empty' <<< "$ALL_VARS")
+          if [ -z "$project_id" ]; then
+            echo "::error::Repo variable VERCEL_PROJECT_ID_$key is not set." && exit 1
+          fi
+          if [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_TOKEN" ]; then
+            echo "::error::VERCEL_ORG_ID (variable) and VERCEL_TOKEN (secret) must be set." && exit 1
+          fi
+          echo "VERCEL_PROJECT_ID=$project_id" >> "$GITHUB_ENV"
+          echo "STAGING_DOMAIN=$staging_domain" >> "$GITHUB_ENV"
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@62.7.0
+
+      # Staging = Vercel "preview" env with branch-scoped vars for `staging`.
+      - name: Pull Vercel project settings & env
+        run: |
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          else
+            vercel pull --yes --environment=preview --git-branch=staging --token="$VERCEL_TOKEN"
+          fi
+
+      - name: Build
+        run: |
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            vercel build --prod --token="$VERCEL_TOKEN"
+          else
+            vercel build --token="$VERCEL_TOKEN"
+          fi
+
+      - name: Deploy
+        id: deploy
+        run: |
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            url=$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")
+          else
+            url=$(vercel deploy --prebuilt --token="$VERCEL_TOKEN")
+          fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Alias staging domain
+        if: inputs.environment == 'staging'
+        run: |
+          if [ -z "$STAGING_DOMAIN" ]; then
+            echo "::notice::No STAGING_DOMAIN_* variable for ${{ inputs.zone }}; skipping alias."
+            exit 0
+          fi
+          vercel alias set "${{ steps.deploy.outputs.url }}" "$STAGING_DOMAIN" --token="$VERCEL_TOKEN"
+
+      - name: Summary
+        run: |
+          {
+            echo "### ${{ inputs.zone }} → ${{ inputs.environment }}"
+            echo "- Deployment: ${{ steps.deploy.outputs.url }}"
+            [ -n "$STAGING_DOMAIN" ] && [ "${{ inputs.environment }}" = "staging" ] && echo "- Alias: https://$STAGING_DOMAIN"
+            echo "- Commit: \`${{ github.sha }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"

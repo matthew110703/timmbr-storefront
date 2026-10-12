@@ -1,56 +1,176 @@
-name: CI Pipeline
+name: CI
 
 on:
-  push:
-    branches: [main, staging]
   pull_request:
     branches: [main, staging]
+  push:
+    branches: [main, staging]
+  workflow_dispatch:
+    inputs:
+      zones:
+        description: 'Zones to check & deploy: "all" or a comma list (e.g. shell,account)'
+        required: true
+        default: all
+
+permissions:
+  contents: read
+  actions: read # read previous runs to find the last successful deploy
+
+# PRs and staging: newest run wins. Production: never cancel a deploy mid-flight.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  TURBO_TELEMETRY_DISABLED: 1
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
 jobs:
-  verify:
-    name: Verify Multi-Zone Workspace
+  changes:
+    name: Detect affected zones
     runs-on: ubuntu-latest
-
+    outputs:
+      zones: ${{ steps.detect.outputs.zones }}
+      any: ${{ steps.detect.outputs.any }}
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v4
         with:
           run_install: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "pnpm"
+          cache: pnpm
 
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
-      - name: Lint
+      # PR: diff against the target branch.
+      # Push: diff against the last *successful* push run on this branch, so a
+      # zone whose checks/deploy failed or was cancelled is retried next time.
+      - name: Resolve base ref
+        id: base
+        if: github.event_name != 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            pnpm exec turbo run lint --filter="...[origin/${{ github.base_ref }}]"
+            base="origin/${{ github.base_ref }}"
           else
-            pnpm exec turbo run lint
+            base=$(gh run list --repo "${{ github.repository }}" \
+              --workflow ci.yml --branch "${{ github.ref_name }}" \
+              --event push --status success --limit 1 \
+              --json headSha --jq '.[0].headSha // empty')
+          fi
+          echo "base=$base" >> "$GITHUB_OUTPUT"
+          echo "Base ref: ${base:-<none> (all zones)}"
+
+      - name: Detect zones
+        id: detect
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            node scripts/ci/affected-zones.mjs --zones "${{ inputs.zones }}"
+          else
+            node scripts/ci/affected-zones.mjs --base "${{ steps.base.outputs.base }}" --head "${{ github.sha }}"
           fi
 
-      - name: Type Check
-        run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            pnpm exec turbo run check-types --filter="...[origin/${{ github.base_ref }}]"
-          else
-            pnpm exec turbo run check-types
-          fi
+  repo-checks:
+    name: Repo checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Build
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prettier
+        run: pnpm exec prettier --check .
+
+  zone-checks:
+    name: Checks (${{ matrix.zone }})
+    needs: changes
+    if: needs.changes.outputs.any == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        zone: ${{ fromJSON(needs.changes.outputs.zones) }}
+    env:
+      # Builds run without real secrets; the real env check runs in `vercel build`.
+      SKIP_ENV_VALIDATION: 1
+      NEXT_PUBLIC_API_URL: http://127.0.0.1:9
+      CORE_API_URL: http://127.0.0.1:9
+      CORE_INTERNAL_KEY: ci-placeholder
+      NEXT_PUBLIC_DOMAIN: localhost
+      STOREFRONT_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint, type-check, test, build
+        run: pnpm exec turbo run lint check-types test build --filter=${{ matrix.zone }}
+
+  # Single required status check for branch protection. Passes when every
+  # zone was skipped (e.g. docs-only change), fails if anything failed.
+  ci-ok:
+    name: CI OK
+    needs: [changes, repo-checks, zone-checks]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify results
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            pnpm exec turbo run build --filter="...[origin/${{ github.base_ref }}]"
-          else
-            pnpm exec turbo run build
+          if [ "${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}" = "true" ]; then
+            echo "One or more checks failed or were cancelled." && exit 1
           fi
+          echo "All checks passed (affected zones: ${{ needs.changes.outputs.zones }})."
+
+  deploy-staging:
+    name: Deploy staging (${{ matrix.zone }})
+    needs: [changes, repo-checks, zone-checks]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/staging' && needs.changes.outputs.any == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        zone: ${{ fromJSON(needs.changes.outputs.zones) }}
+    uses: ./.github/workflows/deploy-zone.yml
+    with:
+      zone: ${{ matrix.zone }}
+      environment: staging
+    secrets: inherit
+
+  deploy-production:
+    name: Deploy production (${{ matrix.zone }})
+    needs: [changes, repo-checks, zone-checks]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.changes.outputs.any == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        zone: ${{ fromJSON(needs.changes.outputs.zones) }}
+    uses: ./.github/workflows/deploy-zone.yml
+    with:
+      zone: ${{ matrix.zone }}
+      environment: production
+    secrets: inherit

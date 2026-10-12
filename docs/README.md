@@ -10,7 +10,7 @@ Welcome to the central documentation hub for the **@timmbr** storefront and mult
 
 - **[System Design & Architecture](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/architecture/system-design.md)**: Master architecture contract, technical stack, core principles, and monorepo layout.
 - **[Multi-Zone Routing & Ingress Proxy](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/architecture/multi-zone-routing.md)**: How native Next.js URL rewrites and edge proxying connect decoupled zone applications under a single unified domain.
-- **[CI/CD Pipeline](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/architecture/ci-cd.md)**: Automated verification with dynamic multi-zone change detection.
+- **[CI/CD Pipeline](file:///c:/Users/Nexus/Desktop/Coding%20Playground/projects/timmbr/timmbr-storefront/docs/architecture/ci-cd.md)**: Per-zone change detection, checks, and Vercel deploys (staging & production).
 
 ### 2. Standards & Conventions
 
