@@ -39,6 +39,18 @@ The platform is structured as an **apps-only monorepo** utilizing **Next.js Nati
      - `/category/<slug>`: one flat, globally unique slug per category at any depth. The breadcrumb and subcategories come from data, not the URL.
      - `/products/<slug>`: the product page. `?variant=<sku>` selects a variant.
    - **Listing state lives in the query string:** filters (`brand=a,b`, attribute keys like `material=teak`, `price=min-max`), `sort` and `page`. The filter UI uses `router.push`. Category pages point their canonical URL at the clean path, and filtered combinations get `noindex, follow`.
+   - **Listing flow (PLP):**
+     1. The page parses the URL with `@timmbr/utils` `listing-state` and makes **one** request to core, `GET /catalog/listing`. The request is `no-store` on the zone side because core caches it.
+     2. Core normalises the request: unknown keys and values are dropped, and everything is put in canonical order. It answers from Redis (60s, or 5 min for unfiltered views), or from the `ProductListing` read model in two parallel SQL statements: the page of cards, and total + facet counts + price bounds.
+     3. The response's `applied` drives the chips, the panel and the canonical URL.
+   - **Filter UI:**
+     - Desktop (`FilterSidebar`): ticks show instantly and are committed after a 250 ms debounce, so a burst of ticks costs one navigation. While it loads, the results dim (`ListingProvider`).
+     - Phones (`FilterDrawer`): the drawer edits a draft. Live counts come from `GET /products/api/listing-facets` (edge-cached for 30s), and Apply navigates once.
+   - **Facet counts** ignore each group's own selection (OR within a group, AND across groups).
+   - **Read model:** core's Postgres triggers keep `ProductListing` in sync with every catalog write, so there's no app-side sync to forget.
+   - **Status codes:** listing routes have no `loading.tsx`. An unknown category, or a page past the end, returns a real 404 because the data loads before streaming starts.
+   - **Trusted client:** the zone sends `CORE_INTERNAL_KEY` (`x-internal-key`), so core doesn't rate-limit it as one IP. It's set in the catalog Vercel project, and locally in `zones/catalog/.env.local`.
+   - **Banner:** from the CMS (`catalog` page, `plp-banner` section), with fallback copy in `strings.ts`.
 
 ---
 
