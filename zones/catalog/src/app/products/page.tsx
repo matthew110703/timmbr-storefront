@@ -1,20 +1,27 @@
 import type { Metadata } from "next";
-import { Container, Center, Heading } from "@timmbr/ui";
-import { strings } from "./strings";
+import { ListingPage, listingMetadata } from "@/components/Listing";
+import type { SearchParams } from "@/lib/listing";
 
-export const metadata: Metadata = {
-  title: strings.metadata.title,
-  description: strings.metadata.description,
+type ProductsPageProps = {
+  searchParams: Promise<SearchParams>;
 };
 
-export default function ProductsPage() {
-  return (
-    <Container maxWidth="xl" padded className="py-24">
-      <Center>
-        <Heading level={1} font="display">
-          {strings.title}
-        </Heading>
-      </Center>
-    </Container>
-  );
+export async function generateMetadata({
+  searchParams,
+}: ProductsPageProps): Promise<Metadata> {
+  return listingMetadata({
+    basePath: "/products",
+    searchParams: await searchParams,
+  });
+}
+
+/** All products, or search results with `?q=`. */
+export default async function ProductsPage({
+  searchParams,
+}: ProductsPageProps) {
+  // Called directly (it is an async server component), so the page resolves in one step.
+  return ListingPage({
+    basePath: "/products",
+    searchParams: await searchParams,
+  });
 }

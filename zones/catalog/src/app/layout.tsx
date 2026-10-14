@@ -5,6 +5,7 @@ import "./globals.css";
 import { strings } from "./strings";
 import { AuthModalHost } from "@timmbr/auth";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { getCategoryTree } from "@/lib/api/categories";
 import { toNavTree } from "@/lib/category-nav";
 
@@ -56,6 +57,7 @@ export default async function RootLayout({
           <Container asChild maxWidth="2xl">
             <main>{children}</main>
           </Container>
+          <Footer categories={categories} />
           {/* Session + sign-in modal, shared with every zone via @timmbr/auth */}
           <AuthModalHost />
         </TimmbrConfigProvider>

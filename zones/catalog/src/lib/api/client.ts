@@ -8,6 +8,10 @@ import { env } from "@/env";
 export const api = createApiClient({
   baseUrl: env.CORE_API_URL,
   apiPrefix: "/api/v1",
+  // Marks this server as a trusted storefront client (no per-IP rate limit on catalog reads).
+  ...(env.CORE_INTERNAL_KEY && {
+    defaultHeaders: { "x-internal-key": env.CORE_INTERNAL_KEY },
+  }),
 });
 
 export { ApiError, isApiError } from "@timmbr/utils";

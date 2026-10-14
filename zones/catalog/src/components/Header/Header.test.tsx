@@ -15,6 +15,8 @@ import {
   loadSession,
 } from "@timmbr/auth";
 import { Header } from "./Header";
+
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn() }) }));
 import { strings } from "@/app/strings";
 
 const USER = {
@@ -27,11 +29,17 @@ const copy = DEFAULT_AUTH_MESSAGES.profile;
 
 /** The shell's real response shape: `{ success, data }` (not a bare `{ user }`). */
 function mockShellSession(user: typeof USER | null) {
-  const fetchMock = vi.fn().mockResolvedValue(
-    new Response(JSON.stringify({ success: true, data: { user } }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    }),
+  // A fresh body per call: the header also loads the cart count.
+  const fetchMock = vi.fn(async (input: RequestInfo | URL) =>
+    String(input).includes("/cart/count")
+      ? new Response(JSON.stringify({ success: true, data: { count: 2 } }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        })
+      : new Response(JSON.stringify({ success: true, data: { user } }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
   );
   vi.stubGlobal("fetch", fetchMock);
   return fetchMock;
