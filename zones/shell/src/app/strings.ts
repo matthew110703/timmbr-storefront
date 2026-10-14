@@ -13,14 +13,13 @@ export const strings = {
     search: {
       placeholder:
         "Search solid wood furniture, collections, artisanal pieces...",
-      popularTitle: "Popular Searches",
-      popularTags: [
-        { label: "Dining Tables", href: "/products?q=dining+table" },
-        { label: "Teak Chairs", href: "/products?q=teak+chair" },
-        { label: "Solid Wood Beds", href: "/products?q=solid+wood+bed" },
-        { label: "Outdoor Loungers", href: "/products?q=outdoor+lounger" },
-        { label: "Artisan Benches", href: "/products?q=bench" },
-      ],
+      ariaLabel: "Search products",
+      recentTitle: "Recent searches",
+      clearRecent: "Clear",
+      removeRecent: (query: string) => `Remove “${query}” from recent searches`,
+      resultsTitle: "Products",
+      noResults: "No products match",
+      seeAll: (query: string) => `See all results for “${query}”`,
     },
     /** Category menu copy; the categories themselves come from timmbr-core. */
     categoryNav: {

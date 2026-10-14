@@ -21,3 +21,9 @@ export const REFRESH_BEFORE_EXPIRY_S = 60;
  */
 export const OAUTH_BIND_COOKIE = "timmbr_oauth_bind";
 export const OAUTH_BIND_MAX_AGE_S = 10 * 60;
+
+/**
+ * Guest cart id, set by timmbr-core on the first add to cart and carried by the BFF (see
+ * session/guest-cart.ts). Must match core's CART_CONSTANTS.GUEST_CART_COOKIE.
+ */
+export const GUEST_CART_COOKIE = "timmbr_guest_cart";

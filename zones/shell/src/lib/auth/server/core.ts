@@ -11,6 +11,8 @@ export interface CoreRequest {
   accessToken?: string;
   /** End user's IP, so timmbr-core rate-limits per shopper (not per BFF). */
   clientIp?: string;
+  /** Cookie header for core (only the guest cart cookie is ever forwarded). */
+  cookie?: string;
 }
 
 interface CoreEnvelope<T> {
@@ -46,6 +48,7 @@ export async function coreFetch<T>(
   if (request.body !== undefined) headers["Content-Type"] = "application/json";
   if (request.accessToken)
     headers.Authorization = `Bearer ${request.accessToken}`;
+  if (request.cookie) headers.Cookie = request.cookie;
 
   let response: Response;
   try {

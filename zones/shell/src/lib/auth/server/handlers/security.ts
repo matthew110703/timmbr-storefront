@@ -60,7 +60,7 @@ export const passwordChange: Handler = async (request) => {
       body: { identifier: email, password: newPassword },
       clientIp,
     });
-    return signedIn(session);
+    return await signedIn(session, request);
   } catch {
     // Password changed, but the fresh sign-in failed: end this session too
     // rather than leave cookies whose refresh token core already revoked.

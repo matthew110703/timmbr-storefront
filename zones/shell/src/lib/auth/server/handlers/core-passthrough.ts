@@ -2,6 +2,10 @@ import { NextResponse, type NextRequest } from "next/server";
 import { clientIpFrom, trustedHeaders } from "../core";
 import { authEnv } from "../env";
 import { csrfRejected, fail, isSameOrigin, withCookies } from "../http";
+import {
+  guestCartCookieHeader,
+  relayGuestCartCookie,
+} from "../session/guest-cart";
 import { freshSessionTokens } from "../session/refresh";
 
 const FORWARDED_REQUEST_HEADERS = ["accept", "content-type", "accept-language"];
@@ -14,7 +18,8 @@ const FORWARDED_RESPONSE_HEADERS = [
 
 /**
  * `/api/core/*`: pass-through for Client Components. Forwards to timmbr-core
- * with the session's access token. Auth endpoints are excluded — in trusted
+ * with the session's access token, and carries the guest cart cookie both ways
+ * (the only cookie that crosses; see session/guest-cart.ts). Auth endpoints are excluded — in trusted
  * mode they return tokens, which must never reach the browser (use
  * /api/auth/* instead).
  */
@@ -38,6 +43,8 @@ export async function corePassthrough(
     if (value) headers.set(name, value);
   });
   if (accessToken) headers.set("authorization", `Bearer ${accessToken}`);
+  const guestCart = guestCartCookieHeader(request.cookies);
+  if (guestCart) headers.set("cookie", guestCart);
 
   const target = `${authEnv().coreApiUrl}/api/v1/${path.map(encodeURIComponent).join("/")}${request.nextUrl.search}`;
 
@@ -68,10 +75,12 @@ export async function corePassthrough(
     const value = upstream.headers.get(name);
     if (value) responseHeaders.set(name, value);
   });
-  // Upstream Set-Cookie (API-domain cookies) is intentionally dropped.
+  // Upstream Set-Cookie (API-domain cookies) is dropped, except the guest cart
+  // cookie, which is re-issued on the storefront domain.
   const response = new NextResponse(upstream.body, {
     status: upstream.status,
     headers: responseHeaders,
   });
+  relayGuestCartCookie(upstream, response.cookies);
   return withCookies(response, cookieUpdates);
 }

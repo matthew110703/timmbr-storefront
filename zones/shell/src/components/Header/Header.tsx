@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { Icon, NavHeader, toNavMenuItems } from "@timmbr/ui";
-import { useProfileAction } from "@timmbr/auth";
+import { useCartCount, useProfileAction } from "@timmbr/auth";
 import { Package, User } from "@timmbr/icons";
 import { strings } from "@/app/strings";
 import { toCategoryMenus, type CategoryNavNode } from "@/lib/category-nav";
+import { useHeaderSearch } from "./useHeaderSearch";
 import { ASSETS } from "../../../public";
 
 /** Desktop profile menu links (from strings); stable across renders. */
@@ -37,6 +38,10 @@ export function Header({ categories = [] }: HeaderProps) {
     accountHref: strings.header.actions.account.href,
     menuItems: PROFILE_MENU,
   });
+  // Recent searches + product suggestions; submitting opens /products?q=… (catalog zone).
+  const search = useHeaderSearch();
+  // Shared with every zone and tab; 0 until the first load answers.
+  const cartCount = useCartCount() ?? 0;
   // Category pages live in the catalog zone: full navigation from here.
   const navItems = toNavMenuItems(
     toCategoryMenus(categories, strings.header.categoryNav),
@@ -75,16 +80,7 @@ export function Header({ categories = [] }: HeaderProps) {
         alt: strings.branding.logoAlt,
       }}
       navigation={{ items: navItems }}
-      search={{
-        show: true,
-        placeholder: strings.header.search.placeholder,
-        popularSearchesTitle: strings.header.search.popularTitle,
-        popularSearches: strings.header.search.popularTags.map((tag, idx) => ({
-          id: `search-tag-${idx}`,
-          label: tag.label,
-          href: tag.href,
-        })),
-      }}
+      search={search}
       actions={{
         profile: profileAction,
         wishlist: {
@@ -98,7 +94,7 @@ export function Header({ categories = [] }: HeaderProps) {
           label: strings.header.actions.cart.label,
           href: strings.header.actions.cart.href,
           ariaLabel: strings.header.actions.cart.ariaLabel,
-          count: 0,
+          count: cartCount,
         },
       }}
     />

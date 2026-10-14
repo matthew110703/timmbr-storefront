@@ -10,6 +10,7 @@ import {
   setOAuthBindCookie,
   setSessionCookies,
 } from "../session/cookies";
+import { mergeGuestCart } from "../session/guest-cart";
 
 /**
  * Starts Google sign-in (opened in the popup). Sets a binding nonce in an
@@ -57,6 +58,12 @@ export const oauthCallback: Handler = async (request) => {
     const response = NextResponse.redirect(resultUrl("success"));
     clearOAuthBindCookie(response.cookies);
     setSessionCookies(response.cookies, session);
+    await mergeGuestCart(
+      request,
+      session.accessToken,
+      response,
+      clientIpFrom(request.headers),
+    );
     return response;
   } catch {
     return errorResponse;

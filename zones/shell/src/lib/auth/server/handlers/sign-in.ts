@@ -48,7 +48,7 @@ export const otpVerify: Handler = async (request) => {
       body: { identifier, code, ...(intent && { intent }) },
       clientIp: clientIpFrom(request.headers),
     });
-    return signedIn(session);
+    return await signedIn(session, request);
   } catch (error) {
     return fromError(error);
   }
@@ -66,7 +66,7 @@ export const login: Handler = async (request) => {
       body: { identifier, password },
       clientIp: clientIpFrom(request.headers),
     });
-    return signedIn(session);
+    return await signedIn(session, request);
   } catch (error) {
     return fromError(error);
   }
@@ -94,7 +94,7 @@ export const passwordSet: Handler = async (request) => {
       accessToken,
       clientIp: clientIpFrom(request.headers),
     });
-    return signedIn(session);
+    return await signedIn(session, request);
   } catch (error) {
     return withCookies(fromError(error), cookieUpdates);
   }
