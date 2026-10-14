@@ -51,6 +51,11 @@ The platform is structured as an **apps-only monorepo** utilizing **Next.js Nati
    - **Status codes:** listing routes have no `loading.tsx`. An unknown category, or a page past the end, returns a real 404 because the data loads before streaming starts.
    - **Trusted client:** the zone sends `CORE_INTERNAL_KEY` (`x-internal-key`), so core doesn't rate-limit it as one IP. It's set in the catalog Vercel project, and locally in `zones/catalog/.env.local`.
    - **Banner:** from the CMS (`catalog` page, `plp-banner` section), with fallback copy in `strings.ts`.
+10. **Checkout Zone** (`/checkout`, port 3002): the cart and payment on one page, for signed-in shoppers only (the shell gates `/checkout` like `/account`).
+    - **Payment logic lives in the DS.** `@timmbr/payments` (timmbr-ds) owns the whole Razorpay flow behind `usePayment()`: create or resume the order, load `checkout.js`, open the modal with core's key, order id and amount, verify, and fall back to polling the order if verify cannot be reached (the webhook may have confirmed it). It calls timmbr-core only through the shell's `/api/core` BFF. The zone only composes it.
+    - **Core decides everything that matters:** prices (`POST /checkout/quote`), stock, the key id and the order. `POST /orders` is idempotent (the same lines and address return the open order), and `POST /orders/:id/payment-session` resumes a PENDING order after a dismissed or failed attempt. See timmbr-core `docs/payments.md`.
+    - **Methods:** the rows (UPI, cards, net banking, EMI) only preselect a tab in the Razorpay modal; cash on delivery is shown disabled. Coupons and bank offers are not part of the MVP.
+    - **After paying:** the cart badge is cleared (`setCartCount(0)` from `@timmbr/auth`) and the shopper lands on `/checkout/success?orderId=…`, which reads the order from core and only says "placed" once it is CONFIRMED.
 
 ---
 
