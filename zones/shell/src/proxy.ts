@@ -4,7 +4,7 @@ import type { NextRequest, NextResponse } from "next/server";
 import { createSessionProxy } from "@/lib/auth/server/session/proxy";
 
 /** Zone paths that need a signed-in user. The shell owns this policy. */
-const PROTECTED_PREFIXES = ["/account"];
+const PROTECTED_PREFIXES = ["/account", "/checkout"];
 
 function isProtected(path: string) {
   return PROTECTED_PREFIXES.some(
