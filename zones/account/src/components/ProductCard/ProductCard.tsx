@@ -1,7 +1,6 @@
 import Image from "next/image";
 import {
   Badge,
-  Button,
   Icon,
   Inline,
   MediaCard,
@@ -10,6 +9,7 @@ import {
   Text,
 } from "@timmbr/ui";
 import { Heart, Palette, ShoppingBag, Truck } from "@timmbr/icons";
+import { cn } from "@timmbr/utils";
 
 export interface ProductCardProps {
   title: string;
@@ -108,17 +108,27 @@ export function ProductCard({
       }
       mediaTopEnd={
         wishlist && (
-          <Button
-            variant="overlay"
-            size="icon-sm"
-            shape="circle"
+          // A bare heart on the photo (white outline, filled when saved), above the card's link.
+          <button
+            type="button"
             aria-label={wishlist.label}
             aria-pressed={wishlist.saved}
-            onClick={wishlist.onToggle}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              wishlist.onToggle();
+            }}
             disabled={wishlist.disabled}
+            className="flex size-9 items-center justify-center rounded-full text-grey-50 drop-shadow-[0_1px_2px_rgb(0_0_0/0.45)] transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-grey-50 disabled:opacity-60"
           >
-            <Heart />
-          </Button>
+            <Heart
+              aria-hidden="true"
+              className={cn(
+                "size-6 stroke-[1.75]",
+                wishlist.saved && "fill-primary text-primary",
+              )}
+            />
+          </button>
         )
       }
       eyebrow={
