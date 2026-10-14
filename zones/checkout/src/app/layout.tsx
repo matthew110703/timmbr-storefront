@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Manrope, Outfit } from "next/font/google";
 import { TimmbrConfigProvider, Container } from "@timmbr/ui";
+import { AuthModalHost } from "@timmbr/auth";
+import { Header } from "@/components/Header";
 import "./globals.css";
 import { strings } from "./strings";
 
@@ -44,9 +46,12 @@ export default function RootLayout({
     >
       <body>
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
-          <Container asChild maxWidth="xl">
+          <Header />
+          <Container asChild maxWidth="2xl" padded className="pb-36 lg:pb-16">
             <main>{children}</main>
           </Container>
+          {/* Session (expiry, cross-tab sign-out) shared with every zone via @timmbr/auth */}
+          <AuthModalHost />
         </TimmbrConfigProvider>
       </body>
     </html>

@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
     "@timmbr/icons",
     "@timmbr/hooks",
     "@timmbr/utils",
+    "@timmbr/auth",
+    "@timmbr/payments",
   ],
   images: {
     remotePatterns: [
