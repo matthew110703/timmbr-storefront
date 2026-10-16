@@ -167,6 +167,31 @@ export interface ConsultationSectionData extends BaseSectionData {
   };
 }
 
+export interface LegalSubsection {
+  id: string;
+  heading: string;
+  paragraphs?: string[];
+  items?: string[];
+  trailingParagraphs?: string[];
+}
+
+export interface LegalSectionBlock {
+  id: string;
+  heading: string;
+  paragraphs?: string[];
+  items?: string[];
+  trailingParagraphs?: string[];
+  subsections?: LegalSubsection[];
+}
+
+export interface LegalContentSectionData extends BaseSectionData {
+  type: "legal-content";
+  effectiveDate?: string;
+  lastUpdated?: string;
+  intro?: string;
+  sections: LegalSectionBlock[];
+}
+
 /**
  * Flexible Page Section type allowing dynamic section types while providing
  * strong typing for known section models.
@@ -178,6 +203,7 @@ export type PageSection =
   | TrendingSectionData
   | ConsultationSectionData
   | AuthBannerSectionData
+  | LegalContentSectionData
   | BaseSectionData;
 
 export interface PageResponse {
@@ -243,4 +269,13 @@ export function isAuthBannerSection(
   section: PageSection,
 ): section is AuthBannerSectionData {
   return section.type === "auth-banner";
+}
+
+/**
+ * Type guard for Legal Content Section Data
+ */
+export function isLegalContentSection(
+  section: PageSection,
+): section is LegalContentSectionData {
+  return section.type === "legal-content";
 }

@@ -1,11 +1,6 @@
-import {
-  Award,
-  CreditCard,
-  Truck,
-  Wrench,
-  type LucideIcon,
-} from "lucide-react";
-import { Check } from "@timmbr/icons";
+// Award and Wrench are not yet in @timmbr/icons curated set
+import { Award, Wrench, type LucideIcon } from "lucide-react";
+import { Check, CreditCard, Truck } from "@timmbr/icons";
 
 /** CMS icon keys → icons (unknown keys get a check mark). */
 const ICONS: Record<string, LucideIcon> = {

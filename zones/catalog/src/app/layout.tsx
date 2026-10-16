@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Manrope, Outfit } from "next/font/google";
-import { TimmbrConfigProvider, Container } from "@timmbr/ui";
+import { TimmbrConfigProvider, Container, ZoneProgress } from "@timmbr/ui";
 import "./globals.css";
 import { strings } from "./strings";
 import { AuthModalHost } from "@timmbr/auth";
@@ -50,13 +50,14 @@ export default async function RootLayout({
       style={{ colorScheme: "light" }}
       className={`${manrope.variable} ${dmSerif.variable} ${outfit.variable}`}
     >
-      <body>
+      <body className="flex min-h-screen flex-col">
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
+          <ZoneProgress />
           <Header categories={categories} />
           {/* Same width as the header, so content and header edges line up. */}
-          <Container asChild maxWidth="2xl">
-            <main>{children}</main>
-          </Container>
+          <main className="flex-1">
+            <Container maxWidth="2xl">{children}</Container>
+          </main>
           <Footer categories={categories} />
           {/* Session + sign-in modal, shared with every zone via @timmbr/auth */}
           <AuthModalHost />

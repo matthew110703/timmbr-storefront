@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Heading, Text, Stack } from "@timmbr/ui";
+import { Heading, Text, Stack, ScrollRail } from "@timmbr/ui";
 import type {
   TrendingSectionData,
   ProductItem,
@@ -78,17 +78,14 @@ export const Trending: React.FC<TrendingProps> = ({
         </div>
 
         {/* 2. Trending Products Track */}
-        <div
-          data-slot="trending-products-track"
-          className="w-full overflow-x-auto pb-4 pt-1 px-1 flex gap-5 sm:gap-[19.5px] snap-x snap-mandatory scroll-smooth focus:outline-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
+        <ScrollRail gap="md">
           {displayProducts.map((product: ProductItem) => (
             <TrendingProductCard
               key={product.id || product.slug}
               product={product}
             />
           ))}
-        </div>
+        </ScrollRail>
       </Stack>
     </section>
   );

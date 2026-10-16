@@ -17,6 +17,7 @@
     "ds:unlink": "node scripts/ds-link.js unlink",
     "ds:status": "node scripts/ds-link.js status",
     "ds:check": "node scripts/ds-link.js check",
+    "preinstall": "node scripts/ds-link.js sync",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -45,7 +46,7 @@
     "@timmbr/motion": "1.2.4",
     "@timmbr/theme": "1.3.0",
     "@timmbr/tsconfig": "link:../timmbr-ds/packages/config-typescript",
-    "@timmbr/ui": "1.11.0",
+    "@timmbr/ui": "1.13.0",
     "@timmbr/utils": "1.6.0"
   }
 }

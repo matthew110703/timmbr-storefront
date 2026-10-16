@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Heading, Stack } from "@timmbr/ui";
+import { Heading, Stack, ScrollRail } from "@timmbr/ui";
 import type { ExploreCategorySectionData, CategoryItem } from "@/lib/api/types";
 import { strings } from "@/app/strings";
 import { MOCK_FALLBACK_CATEGORIES } from "@/app/mock";
@@ -46,17 +46,14 @@ export const ExploreCategories: React.FC<ExploreCategoriesProps> = ({
         </Heading>
 
         {/* Horizontal Scroll Track */}
-        <div
-          data-slot="category-scroll-container"
-          className="w-full overflow-x-auto pb-4 pt-1 px-1 flex gap-5 sm:gap-6 snap-x snap-mandatory scroll-smooth focus:outline-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
+        <ScrollRail gap="md">
           {displayCategories.map((category: CategoryItem) => (
             <CategoryCard
               key={category.id || category.slug}
               category={category}
             />
           ))}
-        </div>
+        </ScrollRail>
       </Stack>
     </section>
   );

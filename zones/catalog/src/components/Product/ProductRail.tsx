@@ -1,3 +1,4 @@
+import { ScrollRail } from "@timmbr/ui";
 import {
   WishlistProductCard,
   type ProductCardProps,
@@ -41,7 +42,7 @@ export function ProductRail({
       >
         {title}
       </h2>
-      <ul className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:thin] sm:mx-0 sm:gap-5 sm:px-0">
+      <ScrollRail gap="sm">
         {products.map(({ key, ...product }) => (
           <WishlistProductCard
             key={key}
@@ -50,7 +51,7 @@ export function ProductRail({
             className="w-[42%] shrink-0 snap-start sm:w-[30%] lg:w-[calc((100%-3.75rem)/4)]"
           />
         ))}
-      </ul>
+      </ScrollRail>
     </section>
   );
 }

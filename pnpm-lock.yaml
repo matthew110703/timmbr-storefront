@@ -26,8 +26,8 @@ importers:
         specifier: link:../timmbr-ds/packages/config-typescript
         version: link:../timmbr-ds/packages/config-typescript
       "@timmbr/ui":
-        specifier: 1.11.0
-        version: 1.11.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.13.0
+        version: 1.13.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils":
         specifier: 1.6.0
         version: 1.6.0
@@ -66,23 +66,23 @@ importers:
         specifier: ^0.13.11
         version: 0.13.11(typescript@5.9.3)(zod@3.25.76)
       "@timmbr/auth":
-        specifier: 1.2.1
-        version: 1.2.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.4.1
+        version: 1.4.1(@timmbr/ui@1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/hooks":
-        specifier: 1.1.0
-        version: 1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.0
+        version: 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons":
         specifier: 1.6.0
         version: 1.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/motion":
-        specifier: 1.2.4
-        version: 1.2.4(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.5
+        version: 1.2.5(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/theme":
         specifier: 1.3.0
         version: 1.3.0
       "@timmbr/ui":
-        specifier: 1.11.0
-        version: 1.11.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.13.1
+        version: 1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils":
         specifier: 1.6.0
         version: 1.6.0
@@ -160,23 +160,23 @@ importers:
         specifier: ^0.13.11
         version: 0.13.11(typescript@5.9.3)(zod@3.25.76)
       "@timmbr/auth":
-        specifier: 1.2.1
-        version: 1.2.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.4.1
+        version: 1.4.1(@timmbr/ui@1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/hooks":
-        specifier: 1.1.0
-        version: 1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.0
+        version: 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons":
         specifier: 1.6.0
         version: 1.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/motion":
-        specifier: 1.2.4
-        version: 1.2.4(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.5
+        version: 1.2.5(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/theme":
         specifier: 1.3.0
         version: 1.3.0
       "@timmbr/ui":
-        specifier: 1.11.0
-        version: 1.11.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.13.1
+        version: 1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils":
         specifier: 1.6.0
         version: 1.6.0
@@ -251,17 +251,17 @@ importers:
         specifier: ^0.13.11
         version: 0.13.11(typescript@5.9.3)(zod@3.25.76)
       "@timmbr/auth":
-        specifier: 1.2.1
-        version: 1.2.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.4.1
+        version: 1.4.1(@timmbr/ui@1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/hooks":
-        specifier: 1.1.0
-        version: 1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.0
+        version: 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons":
         specifier: 1.6.0
         version: 1.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/motion":
-        specifier: 1.2.4
-        version: 1.2.4(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.2.5
+        version: 1.2.5(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/payments":
         specifier: 1.0.0
         version: 1.0.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -269,8 +269,8 @@ importers:
         specifier: 1.3.0
         version: 1.3.0
       "@timmbr/ui":
-        specifier: 1.11.0
-        version: 1.11.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 1.13.1
+        version: 1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils":
         specifier: 1.6.0
         version: 1.6.0
@@ -345,26 +345,11 @@ importers:
         specifier: ^0.13.11
         version: 0.13.11(typescript@5.9.3)(zod@3.25.76)
       "@timmbr/auth":
-        specifier: 1.2.1
-        version: 1.2.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/hooks":
-        specifier: 1.1.0
-        version: 1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/icons":
-        specifier: 1.6.0
-        version: 1.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/motion":
-        specifier: 1.2.4
-        version: 1.2.4(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/theme":
-        specifier: 1.3.0
-        version: 1.3.0
+        specifier: 1.4.1
+        version: 1.4.1(@timmbr/ui@1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/ui":
-        specifier: 1.11.0
-        version: 1.11.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/utils":
-        specifier: 1.6.0
-        version: 1.6.0
+        specifier: 1.13.1
+        version: 1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       lucide-react:
         specifier: ^1.47.0
         version: 1.47.0(react@19.0.0)
@@ -2616,19 +2601,32 @@ packages:
       "@types/react-dom":
         optional: true
 
-  "@timmbr/auth@1.2.1":
+  "@timmbr/auth@1.4.1":
     resolution:
       {
-        integrity: sha512-aXAeIJf4sGq6H1fs+DvaY5TEVfObzs/AQIUWYQ7/C+HUVjFfKtVPfyRAuTw+LAm03eGjEIE8fGgzZ/0NfW7V8g==,
+        integrity: sha512-g0ecMk4dO3UMjKXXQ1qXmodj5kQmrud0n8W5m5bWXpX1YEs4IDyhKiIF7EYg4aKUGicAbTT6B3APIF/jYbzSQw==,
       }
     peerDependencies:
+      "@timmbr/ui": 1.13.1
       react: ">=18.0.0"
       react-dom: ">=18.0.0"
+    peerDependenciesMeta:
+      "@timmbr/ui":
+        optional: true
 
   "@timmbr/hooks@1.1.0":
     resolution:
       {
         integrity: sha512-7QBjTTMmtpz7HCaiP1HGhdFx/gljq93szvwX5knPA+bSjZGh/E8f9Xb1mB/gOrD+3unxYVdlXy4iDRPuQCySmA==,
+      }
+    peerDependencies:
+      react: ">=18.0.0"
+      react-dom: ">=18.0.0"
+
+  "@timmbr/hooks@1.2.0":
+    resolution:
+      {
+        integrity: sha512-yab3QmMGCDsOrlop8IVFqYevdtwxR+mdz3EdSHYuW+oNns3m7RQpQyNCh8rYm1AMu+p3MlkfxYhTBZO/+uw3Cg==,
       }
     peerDependencies:
       react: ">=18.0.0"
@@ -2653,6 +2651,16 @@ packages:
       react: ">=18.0.0"
       react-dom: ">=18.0.0"
 
+  "@timmbr/motion@1.2.5":
+    resolution:
+      {
+        integrity: sha512-J9awNcYR7dd3uMBgoCEZ8eq49mA8Wt5nMAAGzJ1Ts+xgE4uzZiDsF6Ut6zxy7pTWhjHkIltI3RmhPSSTbHQIgQ==,
+      }
+    peerDependencies:
+      motion: ">=11.0.0"
+      react: ">=18.0.0"
+      react-dom: ">=18.0.0"
+
   "@timmbr/payments@1.0.0":
     resolution:
       {
@@ -2668,10 +2676,23 @@ packages:
         integrity: sha512-y3MUU8QdWiApdSKSYvWXdAd0sPCzGzEtf8co7niDpYU0IMMhNALToInCLl00aH1rOccan1/+XzSQZSX2wwaVlw==,
       }
 
-  "@timmbr/ui@1.11.0":
+  "@timmbr/ui@1.13.0":
     resolution:
       {
-        integrity: sha512-AGlkoRXRoRTnNToq7GTbYT/7hz5ZSPkSfsFgR/7BHJQoPpXLyw6Nu/zEMS3Sp37ghSjjIj1FDxMJADryY2cCfQ==,
+        integrity: sha512-wPlBnrIth7HdbTKNZ/bLV7iHvDmD8iyO1KLv9R9+u1lRNCqhzM09EYHRCgEdKBHaQamYN7t3tdE6Lk2Tu8M1gA==,
+      }
+    peerDependencies:
+      next: ">=13.0.0 || >=14.0.0 || >=15.0.0 || >=16.0.0"
+      react: ">=18.0.0"
+      react-dom: ">=18.0.0"
+    peerDependenciesMeta:
+      next:
+        optional: true
+
+  "@timmbr/ui@1.13.1":
+    resolution:
+      {
+        integrity: sha512-05KJ7+V+rf4apZY1+qZ3ecwLnPkyVqGppTt2pGj9DOckvvC2xh6yanWFwmd7Bgyk4XLSmoMKT04HGcUg1Q+Paw==,
       }
     peerDependencies:
       next: ">=13.0.0 || >=14.0.0 || >=15.0.0 || >=16.0.0"
@@ -7817,21 +7838,22 @@ snapshots:
       "@types/react": 19.3.0
       "@types/react-dom": 19.3.0(@types/react@19.3.0)
 
-  "@timmbr/auth@1.2.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
+  "@timmbr/auth@1.4.1(@timmbr/ui@1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
     dependencies:
-      "@timmbr/hooks": 1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/hooks": 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons": 1.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/ui": 1.11.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/utils": 1.6.0
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
-    transitivePeerDependencies:
-      - "@types/react"
-      - "@types/react-dom"
-      - motion
-      - next
+    optionalDependencies:
+      "@timmbr/ui": 1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   "@timmbr/hooks@1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
+    dependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
+  "@timmbr/hooks@1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
     dependencies:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
@@ -7850,6 +7872,13 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
+  "@timmbr/motion@1.2.5(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
+    dependencies:
+      "@timmbr/utils": 1.6.0
+      motion: 12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
   "@timmbr/payments@1.0.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
     dependencies:
       "@timmbr/utils": 1.6.0
@@ -7858,7 +7887,7 @@ snapshots:
 
   "@timmbr/theme@1.3.0": {}
 
-  "@timmbr/ui@1.11.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
+  "@timmbr/ui@1.13.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
     dependencies:
       "@radix-ui/react-accordion": 1.2.20(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@radix-ui/react-alert-dialog": 1.1.23(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -7879,7 +7908,42 @@ snapshots:
       "@radix-ui/react-tooltip": 1.2.16(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/hooks": 1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/icons": 1.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      "@timmbr/motion": 1.2.4(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/motion": 1.2.5(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/theme": 1.3.0
+      "@timmbr/utils": 1.6.0
+      class-variance-authority: 0.7.1
+      input-otp: 1.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+    optionalDependencies:
+      next: 16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+    transitivePeerDependencies:
+      - "@types/react"
+      - "@types/react-dom"
+      - motion
+
+  "@timmbr/ui@1.13.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@playwright/test@1.63.0)(@types/node@22.20.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)":
+    dependencies:
+      "@radix-ui/react-accordion": 1.2.20(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-alert-dialog": 1.1.23(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-avatar": 1.2.6(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-checkbox": 1.3.11(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-dialog": 1.1.23(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-dropdown-menu": 2.1.24(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-label": 2.1.15(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-popover": 1.1.23(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-radio-group": 1.4.7(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-select": 2.3.7(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-separator": 1.1.15(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-slider": 1.4.7(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-slot": 1.3.3(@types/react@19.3.0)(react@19.0.0)
+      "@radix-ui/react-switch": 1.3.7(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-tabs": 1.1.21(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-toast": 1.2.23(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@radix-ui/react-tooltip": 1.2.16(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/hooks": 1.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/icons": 1.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      "@timmbr/motion": 1.2.5(motion@12.43.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       "@timmbr/theme": 1.3.0
       "@timmbr/utils": 1.6.0
       class-variance-authority: 0.7.1

@@ -131,10 +131,19 @@ function getPackageStatus(zoneDir, pkgName, pkgJson) {
     "package.json",
   );
 
-  if (
-    declaredVersion.startsWith("file:.yalc") ||
-    fs.existsSync(yalcPkgJsonPath)
-  ) {
+  const yalcDir = path.resolve(zoneDir, ".yalc", ...pkgName.split("/"));
+  if (declaredVersion.startsWith("file:.yalc")) {
+    if (fs.existsSync(yalcDir)) {
+      return { status: "yalc", details: "Yalc Local Link (.yalc/)" };
+    }
+    // package.json declares file:.yalc but the directory is missing — stale link
+    return {
+      status: "stale",
+      details:
+        "Stale link (package.json has file:.yalc but .yalc/ dir missing)",
+    };
+  }
+  if (fs.existsSync(yalcPkgJsonPath)) {
     return { status: "yalc", details: "Yalc Local Link (.yalc/)" };
   }
 
@@ -169,7 +178,11 @@ const WORKSPACE_YAML_PATH = path.resolve(ROOT_DIR, "pnpm-workspace.yaml");
 function syncWorkspaceOverrides() {
   if (!fs.existsSync(WORKSPACE_YAML_PATH)) return;
   const zones = findZones();
-  const linkedPackages = new Set();
+
+  // Map: package name → zone name whose .yalc/ holds the built copy.
+  // Shell is preferred (historical convention); first-found is the fallback
+  // for packages that are only a dependency of non-shell zones.
+  const packageZoneMap = new Map();
 
   for (const zone of zones) {
     const allDeps = {
@@ -178,7 +191,13 @@ function syncWorkspaceOverrides() {
     };
     for (const [dep, ver] of Object.entries(allDeps)) {
       if (typeof ver === "string" && ver.startsWith("file:.yalc")) {
-        linkedPackages.add(dep);
+        const yalcPkgPath = path.resolve(zone.dir, ".yalc", ...dep.split("/"));
+        if (fs.existsSync(yalcPkgPath)) {
+          // Overwrite only if unseen yet, or if this zone is shell (shell wins).
+          if (!packageZoneMap.has(dep) || zone.name === "shell") {
+            packageZoneMap.set(dep, zone.name);
+          }
+        }
       }
     }
   }
@@ -186,12 +205,15 @@ function syncWorkspaceOverrides() {
   const yaml = fs.readFileSync(WORKSPACE_YAML_PATH, "utf8");
   const baseYaml = yaml.split(/^overrides:/m)[0].trimEnd();
 
-  if (linkedPackages.size === 0) {
+  if (packageZoneMap.size === 0) {
     fs.writeFileSync(WORKSPACE_YAML_PATH, `${baseYaml}\n`, "utf8");
   } else {
-    const overridesLines = Array.from(linkedPackages)
-      .sort()
-      .map((pkg) => `  "${pkg}": "file:zones/shell/.yalc/${pkg}"`)
+    const overridesLines = Array.from(packageZoneMap.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(
+        ([pkg, zoneName]) =>
+          `  "${pkg}": "file:zones/${zoneName}/.yalc/${pkg}"`,
+      )
       .join("\n");
     fs.writeFileSync(
       WORKSPACE_YAML_PATH,
@@ -228,6 +250,10 @@ function handleStatus(zones) {
         );
       } else if (info.status === "symlink") {
         console.log(`  \x1b[33m🔗 ${dep.padEnd(20)}\x1b[0m -> ${info.details}`);
+      } else if (info.status === "stale") {
+        console.log(
+          `  \x1b[31m⚠️  ${dep.padEnd(20)}\x1b[0m -> \x1b[31m${info.details}\x1b[0m`,
+        );
       } else {
         console.log(
           `  \x1b[31m⚠️  ${dep.padEnd(20)}\x1b[0m -> ${info.details}`,
@@ -265,7 +291,27 @@ function matchesTarget(pkgName, shortName, targets) {
   });
 }
 
+function handleSync() {
+  console.log(
+    "\n\x1b[36m[Yalc] Syncing workspace overrides with current .yalc/ state...\x1b[0m",
+  );
+  syncWorkspaceOverrides();
+  console.log("\x1b[32m✔ pnpm-workspace.yaml overrides synced.\x1b[0m");
+  console.log(
+    "  Stale overrides (pointing to missing .yalc/ directories) have been removed.",
+  );
+  console.log("  You can now run pnpm commands normally.");
+  console.log(
+    "  Run \x1b[36mpnpm ds:link\x1b[0m to relink packages if needed.\n",
+  );
+}
+
 function handleLink(dsPackages, zones, specifiedTargets = []) {
+  // Remove any stale workspace overrides first — prevents pnpm install (called
+  // at the end of this function) from failing on paths that were valid in a
+  // prior session but whose .yalc/ directories are now missing.
+  syncWorkspaceOverrides();
+
   const hasFilter = specifiedTargets.length > 0;
 
   const packagesToPublish = hasFilter
@@ -641,6 +687,12 @@ Examples:
   pnpm ds:unlink             # Unlink all @timmbr packages
   pnpm ds:status             # Check current link status
   pnpm ds:check              # Pre-commit verification for local Yalc links
+  pnpm ds:repair             # Sync workspace overrides (alias for node scripts/ds-link.js sync)
+
+Recovery: if ALL pnpm commands fail with ENOENT (stale workspace overrides), run
+directly via Node to bypass pnpm's workspace pre-validation:
+  node scripts/ds-link.js sync
+Then run pnpm ds:link to relink packages.
 `);
 }
 
@@ -675,7 +727,7 @@ const firstPositional = positionalArgs[0] || "status";
 let action = "status";
 let rawTargets = [];
 
-if (["link", "unlink", "status", "check"].includes(firstPositional)) {
+if (["link", "unlink", "status", "check", "sync"].includes(firstPositional)) {
   action = firstPositional;
   rawTargets = positionalArgs.slice(1);
 } else {
@@ -713,6 +765,9 @@ switch (action) {
     break;
   case "check":
     handleCheck(activeZones);
+    break;
+  case "sync":
+    handleSync();
     break;
   case "status":
   default:

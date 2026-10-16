@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Manrope, Outfit } from "next/font/google";
-import { TimmbrConfigProvider, Container } from "@timmbr/ui";
+import { TimmbrConfigProvider, Container, ZoneProgress } from "@timmbr/ui";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getCategoryTree } from "@/lib/api/categories";
@@ -53,6 +53,7 @@ export default async function RootLayout({
     >
       <body className="flex min-h-screen flex-col">
         <TimmbrConfigProvider config={{ theme: { mode: "light" } }}>
+          <ZoneProgress />
           <Header categories={categories} />
           <main className="flex-1">
             <Container maxWidth="2xl" padded>
